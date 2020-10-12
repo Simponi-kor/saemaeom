@@ -1,0 +1,256 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "맑은 고딕";
+    font-style: normal;
+}
+section {
+	/*width: 1920px;*/
+	padding: 0px;
+	margin: 0px auto;
+    background-color: #fff;
+    /* text-align: center; */
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.basic_btn {
+    background: none;
+    border: none;
+    outline: 0;
+}
+
+main {
+    margin: 50px 0px;
+}
+
+.content {
+    width: 1100px;
+    min-height: 300px;
+    margin: 0 auto;
+}
+
+.cart_top_text{
+    width: 1100px;
+    height: auto;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0px;
+}
+
+.cart_top{
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.cart_list{
+    list-style: none;
+    display: flex;
+    margin: 0;
+    width: 300px;
+    justify-content: space-between;
+    
+}
+
+.cart_list li {
+    min-width: 50px;
+    line-height: 37px;
+}
+
+.purchase_main {
+    width: 1100px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.purchase_left {
+    width: 680px;
+    min-height: 350px;
+}
+
+.purchase_right {
+    width: 360px;
+    min-height: 200px;
+    border: 2px solid #000;
+    padding: 20px;
+    
+}
+
+.purchase_left_box {
+    min-height: 170px;
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.purchase_title {
+    margin-bottom: 20px;
+}
+
+.purchase_info {
+    margin: 20px 0px;
+}
+
+.purchase_info2 {
+    margin: 20px 0px;
+}
+
+.purchase_info_left {
+    width: 100px;
+    display: inline-block;
+}
+
+.info_address {
+    width: 100px;
+    display: inline-block;
+    float: left;
+}
+
+.purchase_address {
+    width: calc(100%-100px);
+    height: 100px;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.cart{
+    width: 100%;
+    /* display: flex; */
+    border: 1px solid lightgray;
+}
+
+.cart .purchase_title h2 {
+    padding: 10px;
+}
+
+.cart ul {
+    width: 100%;
+    min-height: 150px;
+    
+}
+
+.cart ul li {
+    min-height: 150px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid lightgray;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.cart_img {
+    min-width: 100px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.cart_img img {
+    width: 80px;
+}
+
+.cart_left_top {
+    min-width: 500px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 10px;
+}
+
+.cart_content_title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.cart_content_option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart_content_price {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart_textarea{
+    width: 100%;
+    height: 65px;
+    text-align: left;
+    resize: none;
+    border: 2px solid lightgray;
+    color: #83dda7;
+    padding-left: 5px;
+    padding-top: 3px;
+}
+
+.shipping {
+    width: calc(100%-10px);
+    padding: 10px 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase_right>h2 {
+    text-align: center;
+}
+
+.purchase_right_info {
+    width: calc(100%-20px);
+    min-height: 100px;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid #afafaf;
+    border-bottom: 1px solid lightgray;
+}
+
+.purchase_right_info div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.graycolor {
+    color: #d5d5d5;
+    margin: 5px 0px;
+}
+
+.total_price {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: none;
+    font-size: 15pt;
+    align-items: baseline;
+}
+
+.purchase_btn {
+    width: 96%;
+    height: 50px;
+    margin: 20px 2%;
+    border: none;
+    background: #83dda7;
+    color: #fff;
+    font-weight: 600;
+    font-size: 17pt;
+    text-align: center;
+    cursor: pointer;
+}

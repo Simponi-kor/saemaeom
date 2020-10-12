@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../css/login.css?ver">
+	<title>새마음</title>
+</head>
+<body>
+	<!-- onselectstart="return false" -->
+	<section>
+		<div class="logo">
+			<a href="../">
+				<img src="../img/logo.png" alt="logo">
+			</a>
+		</div>
+
+		<div class="form_div">
+			<form method="post" action="login.php">
+				<?php
+				if(isset($_COOKIE['id_remember'])) {
+					echo '<input type="text" class="id" name="id" placeholder="아이디" autocomplete="username" value="'.$_COOKIE['id_remember'].'">';
+				}else{
+					echo '<input type="text" class="id" name="id" placeholder="아이디" autocomplete="username">';
+				}
+				?>
+				
+				<input type="password" class="ps" name="ps" placeholder="비밀번호" autocomplete="off">
+				<div class="login_plus">
+					<?php
+					if(isset($_COOKIE['id_remember'])) {
+						echo '<input type="checkbox" name="id_rem" value="remember" id="id_rem" checked="checked" style="width: 20px; height: 20px;">';
+					}else{
+						echo '<input type="checkbox" name="id_rem" value="remember" id="id_rem" style="width: 20px; height: 20px;">';
+					}
+
+					?>
+					
+					<label for="id_rem">아이디 저장하기</label>
+
+					<span><a href="../find_member/index.html">아이디</a>/<a href="../find_member/find_pw.html">비밀번호를 잃어바리셨나요?</a></span>
+
+				</div>
+
+				<input type="submit" value="로그인">
+				<button type="button" onclick="location.href='../join'">회원가입</button>
+			</form>
+		</div>
+	</section>
+
+</body>
+</html>

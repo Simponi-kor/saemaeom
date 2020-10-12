@@ -1,0 +1,98 @@
+section {
+	/*width: 1920px;*/
+	padding: 0px;
+	margin: 0px auto;
+    background-color: #fff;
+    text-align: center;
+    font-family: "맑은 고딕";
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.logo {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 60px;
+	padding-bottom: 60px;
+	border-bottom: 2px solid #000000;
+}
+
+.logo img {
+	width: 120px;
+	/* height: 100px; */
+}
+
+.form_div {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+
+.form_div .id {
+	width: 480px;
+	height: 40px;
+	padding: 10px 8px;
+	margin: 10px 0px;
+	border: 2px solid;
+	font-size: 12pt;
+}
+
+.form_div .ps {
+	width: 480px;
+	height: 40px;
+	padding: 10px 8px;
+	margin: 10px 0px;
+	border: 2px solid;
+	font-size: 12pt;
+}
+
+.form_div .login_plus {
+	width: 500px;
+	height: 25px;
+	margin-bottom: 20px;
+}
+
+.form_div .login_plus #id_rem {
+	float: left;
+	margin: 0px;
+	margin-right: 5px;
+}
+
+.form_div .login_plus label {
+	float: left;
+}
+
+.form_div .login_plus span {
+	float: right;
+}
+
+.form_div input[type="submit"] {
+	width: 500px;
+	height: 60px;
+	margin: 10px 0px;
+	background-color: #83dda7;
+	border: 0px solid;
+	color: #fff;
+	font-size: 12pt;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.form_div button[type="button"] {
+	width: 500px;
+	height: 60px;
+	margin: 10px 0px;
+	background-color: #fff;
+	border: 2px solid #83dda7;
+	color: #83dda7;
+	font-size: 12pt;
+	font-weight: bold;
+	cursor: pointer;
+}

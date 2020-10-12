@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/QA.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <title>새마음</title>
+    <script type="text/javascript" src="../js/jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="../js/modal.js"></script>
+</head>
+<body>
+    <div class="modal" id="QA_modal">
+        <div class="QA_modal_content">
+            <div class="jeju_top">
+                <h2><div id="jeju_title">주문 문의하기</div></h2>
+            </div>
+            <div class="modal_main">
+                <form action="../mypage/QArewrite.php" method="POST">
+                    <input type="hidden" name="product_num" id="pnum">
+                    <input type="hidden" name="product_img" id="pro_img">
+                    
+                    <br>
+                    <h4>수정하실 문의 내용을 입력해 주세요.</h4>
+                    <br><br>
+                    <textarea name="tarea" id="tarea" rows="10" required></textarea>
+                    <div class="QA_modal_btn_area">
+                        <button type="button" class="QA_modal_btn modal_cancel" onclick="modal_close()">취소하기</button>
+                        <button type="submit" class="QA_modal_btn modal_sub">작성완료</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal_layer close_btn" onclick="modal_close()"></div>
+    </div>
+    <?php
+    include("../header.html");
+    include("../db/dbcon.php");
+    $id = $_SESSION['id'];
+    
+    
+    ?>
+    <main>
+        <h1>문의 내역</h1>
+        <ul class="order_ul">
+            <?php
+                $sql = "SELECT qa.qa_num, qa.qid, qa.qname, qa.product_num, qa.qdate, qa.qa_category, qa.content, p.num, p.pname, p.price, p.marketer, p.pcategory, p.achievement, p.max_achievement, p.current_achievement, p.refund, p.pdate, p.product_option, p.first_img, p.content_img, p.accept FROM qa_table qa INNER JOIN  product p ON qa.product_num = p.num WHERE qa.qid='$id'";
+                $result = $mysqli->query($sql);
+                while($row=mysqli_fetch_array($result)) {
+                    $qa_num=$row['qa_num'];
+            ?>
+            <li>
+                <div class="order_li_top">
+                    <span class="li_date"><?=$row['qdate']?></span>
+                    <span class="li_price"><?=number_format($row['price'])?>원 &rang;</span>
+                </div>
+                <div class="order_li_bot">
+                    <div class="order_li_bot_left">
+                        <div class="order_li_img">
+                            <a href="../product_detail/index.html?num=<?=$pnum?>">
+                                <img src="../img/product/<?=$row['first_img']?>" alt="">
+                            </a>
+                        </div>
+                        <div class="order_li_text">
+                            <h2><?=$row['pname']?> <div class="qa_category"><?=$row['qa_category']?></div></h2>
+                            <br>
+                            <span><?=$row['content']?></span>
+                        </div>
+                    </div>
+                    <div class="order_li_bot_right">
+                        <button type="button" class="QA_del_btn" onclick="location.href='./QA_del.php?num=<?=$qa_num?>'">삭제하기</button>
+                        <button type="button" class="QA_rebtn" onclick="QA_modal_show(event)" value="<?=$row['qa_num']?>">수정하기</button>
+                        <input type="hidden" value="<?=$row['first_img']?>">
+                    </div>
+                </div>
+            </li>
+            <?php } ?>
+        </ul>
+    </main>
+    <?php
+    include("../footer.html");
+    ?>
+</body>
+</html>

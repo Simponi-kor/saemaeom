@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/prduct_search.css?ver">
+	<title>새마음</title>
+	<script type="text/javascript" src="../js/jquery-1.12.3.js" defer="defer"></script>
+	<script type="text/javascript" src="../js/fixedMenu.js" defer="defer"></script>
+</head>
+<body onselectstart="return false">
+
+	<?php
+	include('../header.html');
+	include('../db/dbcon.php');
+
+	$keyword = htmlentities(trim($_GET['search_keyword']));
+	$keyword = preg_replace("/\s+/", "", $keyword);
+
+	//echo $keyword;
+	?>
+	<main>
+		<div class="search_box">
+			<div class="search_box_top">
+				<h2>
+					<span class="green">'<?=$_GET['search_keyword']?>'</span>에 대한 작품 검색 결과
+				</h2>
+			</div>
+			<div class="search_box_mid">
+				<ul>
+					<li>
+						<input type="checkbox" name="category_checkBox" value="jewerly" id="jewerly" class="checkbox_input hiddenbox"><label for="jewerly" id="jewerly_label" class="checkbox_label"></label><span class="checkbox_label_span"><label for="jewerly">&nbsp;장신구</label></span>
+					</li>
+
+					<li>
+						<input type="checkbox" name="category_checkBox" value="bag" id="bag" class="checkbox_input hiddenbox"><label for="bag" id="bag_label" class="checkbox_label"></label>
+						<span class="checkbox_label_span"><label for="bag">&nbsp;가방</label></span>
+					</li>
+
+					<li>
+						<input type="checkbox" name="category_checkBox" value="phoneCase" id="phoneCase" class="checkbox_input hiddenbox"><label for="phoneCase" id="phoneCase_label" class="checkbox_label"></label>
+						<span class="checkbox_label_span"><label for="phoneCase">&nbsp;휴대폰 케이스</label></span>
+					</li>
+					
+					<li>
+						<input type="checkbox" name="category_checkBox" value="art" id="art" class="checkbox_input hiddenbox"><label for="art" id="art_label" class="checkbox_label">&nbsp;</label><span class="checkbox_label_span"><label for="art">&nbsp;예술품</label></span>
+					</li>
+
+					<li>
+						<input type="checkbox" name="category_checkBox" value="interior" id="interior" class="checkbox_input hiddenbox"><label for="interior" id="interior_label" class="checkbox_label">&nbsp;</label><span class="checkbox_label_span"><label for="interior">&nbsp;인테리어</label></span>
+					</li>
+				</ul>
+				
+			</div>
+
+			<div class="search_box_bot">
+				<ul>
+					<li>
+						<input type="radio" class="state_category hiddenbox" name="state" value="all" id="pro_all" checked="checked"><label for="pro_all" id="pro_all_label" class="radio_label"></label><label for="pro_all">&nbsp;전체 프로젝트</label>
+					</li>
+					&nbsp;&nbsp;&nbsp;
+					<li>
+						<input type="radio" class="state_category hiddenbox" name="state" value="complete" id="complete"><label for="complete" id="complete_label" class="radio_label"></label><label for="complete">&nbsp;완료 프로젝트</label>
+					</li>
+					&nbsp;&nbsp;&nbsp;
+					<li>
+						<input type="radio" class="state_category hiddenbox" name="state" value="incomplete" id="incomplete"><label for="incomplete" id="incomplete_label" class="radio_label"></label><label for="incomplete">&nbsp;미완료 프로젝트</label>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="pro_list_total">
+			<ul id="pro_list_ul">
+				<?php
+						$sql = "SELECT * FROM product";
+						$result = $mysqli->query($sql);
+
+						$array = [[]];
+						$idx=0;
+						while($row = mysqli_fetch_array($result)) { 
+						//날짜
+						$db_date = $row['pdate'];
+						$current_date = date("Y-m-d");
+						$start = new DateTime($current_date);
+						$end = new DateTime($db_date);
+						$date_diff =  date_diff($start, $end);
+
+						//퍼센트
+						$reach=$row['achievement']; //db 목표인원수
+						$current_reach=$row['current_achievement']; //db 현재 인원수
+
+						$pus = round(($current_reach/$reach)*100);
+						if($pus>=100) {
+							$check_st = 'complete';
+						}else {
+							$check_st = 'incomplete';
+						}
+							$array[$idx]['first_img'] = $row['first_img'];
+							$array[$idx]['num'] = $row['num'];
+							$array[$idx]['pname'] = $row['pname'];
+							$array[$idx]['marketer'] = $row['marketer'];
+							$array[$idx]['current_achievement'] = $row['current_achievement'];
+							$array[$idx]['achievement'] = $row['achievement'];
+							$array[$idx]['pdate'] = $date_diff->days;
+							$array[$idx]['pus'] = $pus;
+							$array[$idx]['check'] = $check_st;
+							$array[$idx]['category'] = $row['pcategory'];
+
+							$idx++;
+
+						} ?>
+			</ul>
+		</div> <!-- end pro_list_total -->
+		<script type="text/javascript">
+			const pro_ul = document.querySelector('#pro_list_ul');
+			const state_radio = document.querySelectorAll('.state_category');
+			const checkbox_input = document.querySelectorAll('.checkbox_input');
+			const pr_array = <?php echo json_encode($array);?>;
+			
+			
+			state_radio[0].addEventListener("click", cateory_check);
+			state_radio[1].addEventListener("click", cateory_check);
+			state_radio[2].addEventListener("click", cateory_check);
+			checkbox_input[0].addEventListener("click", cateory_check);
+			checkbox_input[1].addEventListener("click", cateory_check);
+			checkbox_input[2].addEventListener("click", cateory_check);
+			checkbox_input[3].addEventListener("click", cateory_check);
+			checkbox_input[4].addEventListener("click", cateory_check);
+		
+			
+			window.onload = function () {
+				search();
+				
+		    }
+
+		    function cateory_check() {
+		    	radio_btn = document.getElementsByName("state");
+		    	for(var i = 0; i<radio_btn.length; i++){
+		            //만약 라디오 버튼이 체크가 되어있다면 true
+		            if(radio_btn[i].checked==true){
+			                //라디오 버튼 값
+			                radio_menu = radio_btn[i].value;
+			        }
+			    }
+			    item = document.querySelectorAll('.pro_list_item');
+			    if(pro_list_ul_h1 = document.querySelector("#pro_list_ul h1")){
+			    	pro_list_ul_h1.remove();
+			    }
+			    for(j=0; j<item.length; j++) {
+			    	item[j].remove();
+			    }
+			    checkArray = [];
+				// console.log(pr_array[0]['category']);
+				if(radio_menu=='all') {
+					//전체
+					pr_array.forEach(function(index, value) {
+						pr_value = pr_array[value];
+						keyword = <?php echo json_encode($keyword);?>;
+						product_name = pr_value['pname'];
+						product_name_trim = product_name.replace(/(\s*)/g, '');
+
+						if(product_name_trim.indexOf(keyword)!=-1){
+							// col = grid(pr_value['first_img'],pr_value['num'],pr_value['pname'],pr_value['marketer'],pr_value['current_achievement'],pr_value['achievement'],pr_value['pdate'],pr_value['pus']);
+							// $('#pro_list_ul').append(col);
+							checkArray.push([pr_value['first_img'],pr_value['num'],pr_value['pname'],pr_value['marketer'],pr_value['current_achievement'],pr_value['achievement'],pr_value['pdate'],pr_value['pus'],pr_value['check'],pr_value['category']]);
+						}
+					});
+					// console.log('all');
+				}else {
+					pr_array.forEach(function(index, value) {
+						pr_value = pr_array[value];
+						keyword = <?php echo json_encode($keyword);?>;
+						product_name = pr_value['pname'];
+						product_name_trim = product_name.replace(/(\s*)/g, '');
+						// console.log(radio_menu);
+						if(pr_value['check']==radio_menu && product_name_trim.indexOf(keyword)!=-1){
+							// col = grid(pr_value['first_img'],pr_value['num'],pr_value['pname'],pr_value['marketer'],pr_value['current_achievement'],pr_value['achievement'],pr_value['pdate'],pr_value['pus']);
+							// $('#pro_list_ul').append(col);
+							checkArray.push([pr_value['first_img'],pr_value['num'],pr_value['pname'],pr_value['marketer'],pr_value['current_achievement'],pr_value['achievement'],pr_value['pdate'],pr_value['pus'],pr_value['check'],pr_value['category']]);
+							// console.log(pr_value['check']);
+						}
+					});
+					// console.log('select');
+				}
+				// console.log(checkArray);
+
+				//체크박스
+				category = '';
+				if(checkbox_input[0].checked) { // 장신구
+					category += ',jewerly';
+				}
+				if(checkbox_input[1].checked) {	//가방
+					category += ',bag';
+				}
+				if(checkbox_input[2].checked) {	//휴대폰 케이스
+					category += ',phone_case';
+				}
+				if(checkbox_input[3].checked) {	//예술품
+					category += ',art';
+				}
+				if(checkbox_input[4].checked) {	//인테리어
+					category += ',interior';
+				}
+				category = category.substring(1);
+				categoryArr = category.split(",");
+				// console.log(categoryArr);
+				// console.log(checkArray);
+				check_count = categoryArr.length;
+				TcheckArray = [];
+				checkArray = uniqueName(checkArray);
+				checkArray.forEach(function(index, value) {
+					ch_value = checkArray[value];
+					switch(check_count) {
+						case 1:
+						if(ch_value[9].indexOf(categoryArr[0])!=-1) {
+							TcheckArray.push([ch_value[0],ch_value[1],ch_value[2],ch_value[3],ch_value[4],ch_value[5],ch_value[6],ch_value[7],ch_value[8],ch_value[9]]);
+							// console.log('case 1');
+							break;
+						}
+						case 2:
+						if(ch_value[9].indexOf(categoryArr[0])!=-1 && ch_value[9].indexOf(categoryArr[1])!=-1) {
+							TcheckArray.push([ch_value[0],ch_value[1],ch_value[2],ch_value[3],ch_value[4],ch_value[5],ch_value[6],ch_value[7],ch_value[8],ch_value[9]]);
+							// console.log('case 2');
+							break;
+						}
+						case 3:
+						if(ch_value[9].indexOf(categoryArr[0])!=-1 && ch_value[9].indexOf(categoryArr[1])!=-1 && ch_value[9].indexOf(categoryArr[2])!=-1) {
+							TcheckArray.push([ch_value[0],ch_value[1],ch_value[2],ch_value[3],ch_value[4],ch_value[5],ch_value[6],ch_value[7],ch_value[8],ch_value[9]]);
+							// console.log('case 3');
+							break;
+						}
+						case 4:
+						if(ch_value[9].indexOf(categoryArr[0])!=-1 && ch_value[9].indexOf(categoryArr[1])!=-1 && ch_value[9].indexOf(categoryArr[2])!=-1 && ch_value[9].indexOf(categoryArr[3])!=-1) {
+							TcheckArray.push([ch_value[0],ch_value[1],ch_value[2],ch_value[3],ch_value[4],ch_value[5],ch_value[6],ch_value[7],ch_value[8],ch_value[9]]);
+							// console.log('case 4');
+							break;
+						}
+						case 5:
+						if(ch_value[9].indexOf(categoryArr[0])!=-1 && ch_value[9].indexOf(categoryArr[1])!=-1 && ch_value[9].indexOf(categoryArr[2])!=-1 && ch_value[9].indexOf(categoryArr[3])!=-1 && ch_value[9].indexOf(categoryArr[4])!=-1) {
+							TcheckArray.push([ch_value[0],ch_value[1],ch_value[2],ch_value[3],ch_value[4],ch_value[5],ch_value[6],ch_value[7],ch_value[8],ch_value[9]]);
+							// console.log('case 5');
+							break;
+						}
+						default:
+						// console.log('switch');
+						break;
+					}
+					
+				});
+
+				if(TcheckArray=='') {
+					$('#pro_list_ul').append('<h1 id="no_search">검색된 상품이 없습니다.</h1>');
+				}else {
+					TcheckArray.forEach(function(index, value) {
+						pr_value = TcheckArray[value];
+						col = grid(pr_value[0],pr_value[1],pr_value[2],pr_value[3],pr_value[4],pr_value[5],pr_value[6],pr_value[7],pr_value[8],);
+						$('#pro_list_ul').append(col);
+					});
+				}
+				// console.log(TcheckArray);
+
+			}
+
+			function uniqueName(array) {	//3번째
+				re = array.filter(function(item, pos) {
+				       if (!this.hasOwnProperty(item[2])) {
+				           return this[item[2]] = true;
+				       }
+				       return false;
+				}, {});
+				return re;
+			}
+
+			function search() {
+				// pr_ul = document.getElementById('pro_list_ul');
+				document.querySelector("#nosearch")
+				let cnt = 0;
+				pr_array.forEach(function(index, value) {
+					pr_value = pr_array[value];
+					keyword = <?php echo json_encode($keyword);?>;
+					product_name = pr_value['pname'];
+					product_name_trim = product_name.replace(/(\s*)/g, '');
+					
+					if(product_name_trim.indexOf(keyword)!=-1){
+						col = grid(pr_value['first_img'],pr_value['num'],pr_value['pname'],pr_value['marketer'],pr_value['current_achievement'],pr_value['achievement'],pr_value['pdate'],pr_value['pus']);
+						$('#pro_list_ul').append(col);
+						
+						cnt++;
+					}
+				});
+				if(cnt==0) {
+					$('#pro_list_ul').append('<h1 id="no_search">검색된 상품이 없습니다.</h1>');
+				}
+				
+			}
+
+			function grid(first_img,num,pname,marketer,current_achievement,achievement,pdate,pus,check) {
+				col = `<li class="pro_list_item item">
+							<div class="pro_list_item_top">
+								<a href="../product_detail/index.html?num=${num}">
+									<img src="../img/product/${first_img}" alt="${first_img}">
+								</a>
+							</div>
+							<div class="pro_list_item_bottom">
+								<h3 class="pro_title">${pname}</h3>
+
+								<p class="pro_writer">
+									${marketer}
+								</p>
+								
+								<div class="progress">
+									<progress value="${current_achievement}" max="${achievement}" ></progress>
+									<img src="../img/icon/calendar.png" alt="calendar">
+									<p>${pdate}일 남음</p>
+									<b>${pus}%</b>
+									<font>${current_achievement}/${achievement}(명)&nbsp;&nbsp;</font>
+								</div>
+							</div>
+						</li>`;
+				return col;
+			}
+			</script>
+	</main>
+	<footer>
+		<?php
+		include('../footer.html')
+		?>
+	</footer>
+
+</body>
+</html>

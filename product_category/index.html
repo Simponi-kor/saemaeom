@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/product_catagory.css">
+	<title>새마음</title>
+	<script type="text/javascript" src="../js/jquery-1.12.3.js" defer="defer"></script>
+	<script type="text/javascript" src="../js/fixedMenu.js" defer="defer"></script>
+</head>
+<body onselectstart="return false">
+	<?php
+	include('../header.html');
+	include('../db/dbcon.php');
+	$category = $_GET['category'];
+	if($category == 'jewerly')
+		$title = '장신구';
+	else if($category == 'bag')
+		$title = '가방';
+	else if($category == 'phoneCase')
+		$title = '휴대폰 케이스';
+	else if($category == 'art')
+		$title = '예술품';
+	else if($category == 'interior')
+		$title = '인테리어';
+	else
+		$title = '화분';
+
+	
+	?>
+	<main>
+		<div class="pro_list_all">
+
+			<div class="pro_list_text">
+				<p><?=$title?></p>
+			</div>
+			<div class="radio_box">
+				<ul>
+					<li>
+						<input type="radio" class="state_category hiddenbox" name="state" value="all" id="pro_all" checked="checked"><label for="pro_all" id="pro_all_label" class="radio_label"></label><label for="pro_all">&nbsp;전체 프로젝트</label>
+					</li>
+					&nbsp;&nbsp;&nbsp;
+					<li>
+						<input type="radio" class="state_category hiddenbox" name="state" value="complete" id="complete"><label for="complete" id="complete_label" class="radio_label"></label><label for="complete">&nbsp;완료 프로젝트</label>
+					</li>
+					&nbsp;&nbsp;&nbsp;
+					<li>
+						<input type="radio" class="state_category hiddenbox" name="state" value="incomplete" id="incomplete"><label for="incomplete" id="incomplete_label" class="radio_label"></label><label for="incomplete">&nbsp;미완료 프로젝트</label>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="pro_list_total">
+				<ul id="pro_list_ul">
+					<?php
+
+						$sql = "SELECT * FROM product WHERE pcategory='$category'";
+						$result = $mysqli->query($sql);
+						$array = [[]];
+						$idx=0;
+
+						while($row = mysqli_fetch_array($result)) { ?>
+
+						<li class="pro_list_item item">
+							<div class="pro_list_item_top">
+								<a href="../product_detail/index.html?num=<?=$row['num']?>">
+									<img src="../img/product/<?=$row['first_img']?>" alt="<?=$row['first_img']?>">
+								</a>
+							</div>
+							<div class="pro_list_item_bottom">
+								<h3 class="pro_title"><?=$row['pname']?></h3>
+
+								<p class="pro_writer">
+									<?=$row['marketer']?>
+								</p>
+								
+								<div class="progress">
+									<progress value="<?=$row['current_achievement']?>" max="<?=$row['achievement']?>" ></progress>
+									<img src="../img/icon/calendar.png" alt="calendar">
+									<?php
+									//날짜
+									$db_date = $row['pdate'];
+									$current_date = date("Y-m-d");
+									$start = new DateTime($current_date);
+									$end = new DateTime($db_date);
+									$date_diff =  date_diff($start, $end);
+
+									//퍼센트
+									$reach=$row['achievement']; //db 목표인원수
+									$current_reach=$row['current_achievement']; //db 현재 인원수
+
+									$pus = round(($current_reach/$reach)*100);
+									if($pus>=100) {
+										$check_st = 'complete';
+									}else {
+										$check_st = 'incomplete';
+									}
+									$array[$idx]['first_img'] = $row['first_img'];
+									$array[$idx]['num'] = $row['num'];
+									$array[$idx]['pname'] = $row['pname'];
+									$array[$idx]['marketer'] = $row['marketer'];
+									$array[$idx]['current_achievement'] = $row['current_achievement'];
+									$array[$idx]['achievement'] = $row['achievement'];
+									$array[$idx]['pdate'] = $date_diff->days;
+									$array[$idx]['pus'] = $pus;
+									$array[$idx]['check'] = $check_st;
+									$array[$idx]['category'] = $row['pcategory'];
+									
+									
+									
+									$idx++;
+
+									?>
+									<p><?=$date_diff->days?>일 남음</p>
+									<b><?=$pus?>%</b>
+									<font><?=$current_reach?>/<?=$reach?>(명)&nbsp;&nbsp;</font>
+								</div>
+							</div>
+						</li>
+						<?php } ?>
+				</ul>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			const pro_ul = document.querySelector('#pro_list_ul');
+			state_radio = document.querySelectorAll('.state_category');
+			state_radio[0].addEventListener("click", repro);
+			state_radio[1].addEventListener("click", repro);
+			state_radio[2].addEventListener("click", repro);
+			function repro(ev) {
+				console.log(ev.target.value);
+				item = document.querySelectorAll('.pro_list_item');
+				for(j=0; j<item.length; j++) {
+					item[j].remove();
+				}
+				idx_count = <?=count($array)?>;
+				
+
+				pr_array = <?php echo json_encode($array);?>;
+				
+				console.log(pr_array[0]['category']);
+				if(ev.target.value=='all') {
+					//전체
+					pr_array.forEach(function(index, value) {
+						pr_value = pr_array[value];
+						col = grid(pr_value['first_img'],pr_value['num'],pr_value['pname'],pr_value['marketer'],pr_value['current_achievement'],pr_value['achievement'],pr_value['pdate'],pr_value['pus']);
+						$('#pro_list_ul').append(col);
+					});
+				}
+				if(ev.target.value=='complete') {
+					//완료
+					pr_array.forEach(function(index, value) {
+						pr_value = pr_array[value];
+						if(pr_value['check']=='complete'){
+							col = grid(pr_value['first_img'],pr_value['num'],pr_value['pname'],pr_value['marketer'],pr_value['current_achievement'],pr_value['achievement'],pr_value['pdate'],pr_value['pus']);
+							$('#pro_list_ul').append(col);
+						}
+					});
+				}
+				if(ev.target.value=='incomplete') {
+					//미완료
+					pr_array.forEach(function(index, value) {
+						pr_value = pr_array[value];
+						if(pr_value['check']=='incomplete'){
+							col = grid(pr_value['first_img'],pr_value['num'],pr_value['pname'],pr_value['marketer'],pr_value['current_achievement'],pr_value['achievement'],pr_value['pdate'],pr_value['pus']);
+							$('#pro_list_ul').append(col);
+						}
+					});
+				}
+			}
+
+			function grid(first_img,num,pname,marketer,current_achievement,achievement,pdate,pus,check) {
+				col = `<li class="pro_list_item item">
+							<div class="pro_list_item_top">
+								<a href="../product_detail/index.html?num=${num}">
+									<img src="../img/product/${first_img}" alt="${first_img}">
+								</a>
+							</div>
+							<div class="pro_list_item_bottom">
+								<h3 class="pro_title">${pname}</h3>
+
+								<p class="pro_writer">
+									${marketer}
+								</p>
+								
+								<div class="progress">
+									<progress value="${current_achievement}" max="${achievement}" ></progress>
+									<img src="../img/icon/calendar.png" alt="calendar">
+									<p>${pdate}일 남음</p>
+									<b>${pus}%</b>
+									<font>${current_achievement}/${achievement}(명)&nbsp;&nbsp;</font>
+								</div>
+							</div>
+						</li>`;
+				return col;
+			}
+			</script>
+
+		
+	</main>
+	<footer>
+		<?php
+		include('../footer.html')
+		?>
+	</footer>
+</body>
+</html>

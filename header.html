@@ -1,0 +1,111 @@
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/header.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	
+</head>
+<body>
+	<?php
+	session_start();
+
+	?>
+	<!-- 헤더 -->
+	<section id="header">
+		<header>
+			<div class="header_top">
+				<div class="header_top_all">
+					<div class="logo">
+						<a href="../index.html">
+							<img src="../img/logo.png" alt="logo">
+						</a>
+					</div>
+					<form action="../search/index.html" method="get">
+						<div class="search_div">
+							<input type="text" placeholder="검색어 입력" name="search_keyword" autocomplete="off">
+							<button type="submit"><i class="fa fa-search"></i></button>
+						</div>
+					</form>
+					<ul>
+						<li>
+							<?php
+							if(!isset($_SESSION['id'])) {
+								echo '<a href="../login/index.html">
+										<img src="../img/menu/lock.png" alt="mypage">
+									</a>';
+							}else {
+								echo '<a href="../login/logout.php">
+										<img src="../img/menu/lockdown.png" alt="mypage">
+									</a>';
+							}
+							?>
+						</li>
+
+						<?php
+						if(isset($_SESSION['id'])) {
+							echo '<li>
+									<a href="../mypage/index.html">
+										<img src="../img/menu/my.png" alt="mypage">
+									</a>
+								</li>';
+							echo '<li>
+									<a href="../cart/">
+										<img src="../img/icon/cart.png" alt="cart">
+									</a>
+								</li>';
+						}
+						if(isset($_SESSION['grade'])) {
+							if($_SESSION['grade'] == 2) {
+								echo '<li>
+										<a href="../upload_product">
+											<img src="../img/menu/upload.png" alt="cart">
+										</a>
+									</li>';
+							}else if($_SESSION['grade'] == 1) {
+								echo '<li>
+									<a href="../admin/">
+										<img src="../img/menu/admin.png" alt="admin">
+									</a>
+								</li>';
+							}
+						}
+						?>
+					</ul>
+				</div>
+			</div>
+			<div class="header_bottom_all">
+				<div class="header_bottom">
+					<nav class="list">
+						<ul>
+							<li>
+								<a href="../product_category/index.html?category=jewerly">
+									장신구
+								</a>
+							</li>
+							<li>
+								<a href="../product_category/index.html?category=phoneCase">
+									휴대폰 케이스
+								</a>
+							</li>
+							<li>
+								<a href="../product_category/index.html?category=bag">
+									가방
+								</a>
+							</li>
+							<li>
+								<a href="../product_category/index.html?category=art">
+									예술품
+								</a>
+							</li>
+							<li>
+								<a href="../product_category/index.html?category=interior">
+									인테리어
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+	</section>
+</body>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/prduct_detail.css">
+    <title>새마음</title>
+    <script type="text/javascript" src="../js/product_fixedMenu.js" defer="defer"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script type="text/javascript" src="../js/product_detail.js"></script>
+</head>
+<body>
+	<?php
+	include("../header.html");
+	include("../db/dbcon.php");
+
+	$num = $_GET['num'];
+
+	$sql = "SELECT member.name, email, address, phone, product.num, pname, price, marketer, pcategory, achievement, max_achievement, current_achievement, refund, pdate, product_option, first_img, content_img, accept FROM member INNER JOIN  product ON member.name = product.marketer WHERE product.num=$num";
+	$result = $mysqli->query($sql);
+	$row = mysqli_fetch_array($result);
+
+	$db_date = $row['pdate'];
+	$current_date = date("Y-m-d");
+	$start = new DateTime($current_date);
+	$end = new DateTime($db_date);
+	$date_diff =  date_diff($start, $end);
+
+	//배열로 만들기
+	$strCategory = explode(';' , $row['pcategory']);
+	//배열 크기 가져오기
+	$cnt = count($strCategory);
+	//배열로 만들기
+	$stroption = explode(';' , $row['product_option']);
+	//배열 크기 가져오기
+	$option_cnt = count($stroption);
+
+	//퍼센트
+	$reach=$row['achievement']; //db 목표인원수
+	$current_reach=$row['current_achievement']; //db 현재 인원수
+
+	$pus = round(($current_reach/$reach)*100);
+
+	?>
+	<input type="hidden" id="Uname" value="<?=$row['name']?>">
+	<input type="hidden" id="Uemail" value="<?=$row['email']?>">
+	<input type="hidden" id="Uaddress" value="<?=$row['address']?>">
+	<input type="hidden" id="Uphone" value="<?=$row['phone']?>">
+	<input type="hidden" id="Upname" value="<?=$row['pname']?>">
+	<input type="hidden" id="Uprice" value="<?=$row['price']?>">
+	<main>
+		<!-- <br><br><br><br><br><br><br><br><br> -->
+		<section class="title">
+			<?php
+			for($i=0; $i<$cnt; $i++) {
+				if($strCategory[$i] == 'jewerly')
+					$title = '장신구';
+				else if($strCategory[$i] == 'bag')
+					$title = '가방';
+				else if($strCategory[$i] == 'phoneCase')
+					$title = '휴대폰 케이스';
+				else if($strCategory[$i] == 'art')
+					$title = '예술품';
+				else
+					$title = '인테리어';
+
+				if($cnt>1)
+					echo '<span class="catagory">'.$title.'</span>&nbsp;&nbsp;';
+				else
+					echo '<span class="catagory">'.$title.'</span>';
+			}
+
+			?>
+			<br><br>
+			<h1><?=$row['pname']?></h1>
+			<div class="content_body_frontimg">
+				<img src="../img/product/<?=$row['first_img']?>">
+				<div class="product_menu">
+				<ul>
+					<li onclick="content_li(0)" class="pro_detail_li current_menu">작품정보</li>
+					<li onclick="content_li(1)" class="pro_detail_li">펀딩 안내</li>
+					<li onclick="content_li(2)" class="pro_detail_li">문의</li>
+					<li onclick="content_li(3)" class="pro_detail_li">리뷰</li>
+				</ul>
+			</div>
+			</div>
+			<section class="fixed_menu">
+				<div class="menu_date">
+					<img src="../img/icon/Bcalendar.png" id="img">
+					<span>&nbsp;D - <?=$date_diff->days?></span>
+				</div>
+				<div class="menu_progress">
+					<h2><?=$current_reach?>명 주문중 <span><?=$pus?>%</span> <font>목표 주문 수량 <?=$reach?></font></h2>
+					<progress value="<?=$current_reach?>" max="<?=$reach?>" ></progress>
+				</div>
+				<div class="funding">
+					<h5>펀딩 진행중</h5>
+					<span>목표 인원인 <?=$reach?>명이 모여야만 배송 됩니다. 배송 예정일은 <?=$db_date?> 입니다.</span>
+				</div>
+				<select name="option" id="purchase_select" class="selectBox">
+					<option value="">옵션 선택</option>
+					<?php
+					for($i=0; $i<$option_cnt; $i++) {
+						echo "<option value='$stroption[$i]' style='color: #000'>$stroption[$i]</option>";
+					}
+					?>
+				</select>
+				<div class="line"></div>
+				<h2 class="total_price">총 작품금액 <span><?=number_format($row['price'])?>원</span></h2>
+				<div class="btn_area">
+					<?php
+					if(!isset($_SESSION['id'])) { ?>
+						<button id="shopping_btn" onclick="alert('로그인 후 이용해 주세요.')">장바구니 담기</button>
+						<button id="purchase" onclick="alert('로그인 후 이용해 주세요.')">구매하기</button>
+					<?php }else { ?>
+						<button id="shopping_btn" value="<?=$num?>" onclick="add_cart(event)">장바구니 담기</button>
+						<button id="purchase" onclick="purchase_btn(event)">구매하기</button>
+					<?php } ?>
+				</div>
+			</section>
+		</section>
+
+		<section class="content_body">
+			<div class="content_body_img pro_content1">
+				<?php echo htmlspecialchars_decode($row['content_img']); ?>
+			</div>
+			<div class="content_funding pro_content2">
+				<?=htmlspecialchars_decode($row['refund']);?>
+			</div>
+			<div class="content_QA pro_content3">
+				<ul class="QA_ul">
+					<li>
+						<div class="QA_li_top">
+							<div class="profile">
+								<img src="../img/profile/basic.png" alt="profile">
+								<div class="profile_text">
+									<h4>문의 예시</h4>
+									2000년 12월 1일
+								</div>
+							</div>
+							<div class="status">
+								카테고리
+							</div>
+						</div>
+						<div class="QA_li_bot">
+							<span>내용</span>
+						</div>
+					</li>
+				<?php
+				$sql = "SELECT * FROM qa_table WHERE product_num = $num";
+				$result = $mysqli->query($sql);
+				while($row = mysqli_fetch_array($result)) { ?>
+					<li>
+						<div class="QA_li_top">
+							<div class="profile">
+								<img src="../img/profile/basic.png" alt="profile">
+								<div class="profile_text">
+									<h4><?=$row['qname']?></h4>
+									<?=date("Y년 m월 d일", strtotime($row['qdate']))?>
+								</div>
+							</div>
+							<div class="status">
+								<?=$row['qa_category']?>
+							</div>
+						</div>
+						<div class="QA_li_bot">
+							<span><?=$row['content']?></span>
+							<?php
+								$QA_num = $row['qa_num'];
+								if(isset($_SESSION['id'])) {
+									if($row['qid']==$_SESSION['id'] || $_SESSION['grade']==1) { ?>
+										<div class="modify_del_btn_area">
+											<button type="button" onclick="location.href='../mypage/QA_del.php?num=<?=$QA_num?>'">삭제</button>
+										</div>
+							<?php	}
+								} ?>
+						</div>
+					</li>
+				<?php } ?>
+				</ul>
+			</div>
+			<div class="content_review pro_content4">
+				<ul class="QA_ul">
+					<li>
+						<div class="QA_li_top">
+							<div class="profile">
+								<img src="../img/profile/basic.png" alt="profile">
+								<div class="profile_text">
+									<h4>리뷰 예시</h4>
+									2000년 12월 1일
+								</div>
+							</div>
+							<div class="rating">
+								<span class='on'>★</span>
+								<span class='on'>★</span>
+								<span class='on'>★</span>
+								<span class='on'>★</span>
+								★
+							</div>
+						</div>
+						<div class="QA_li_bot">
+							<span>
+								내용
+							</span>
+							
+						</div>
+					</li>
+					
+					<?php
+					$sql = "SELECT * FROM review_table WHERE product_num = $num";
+					$result = $mysqli->query($sql);
+					while($row = mysqli_fetch_array($result)) { ?>
+						<li>
+							<div class="QA_li_top">
+								<div class="profile">
+									<img src="../img/profile/basic.png" alt="profile">
+									<div class="profile_text">
+										<h4><?=$row['wname']?></h4>
+										<?=date("Y년 m월 d일", strtotime($row['wdate']))?>
+									</div>
+								</div>
+								<div class="rating">
+									<?php
+									for($i=0; $i<$row['ranking']; $i++) {
+										echo "<span class='on'>★</span>";
+									}
+									for($i=0; $i<(5-$row['ranking']); $i++) {
+										echo "★";
+									}
+									?>
+								</div>
+							</div>
+							<div class="QA_li_bot">
+								<span>
+									<?php
+									$review_img = $row['review_img'];
+									if(!empty($review_img)) {
+										echo "<img src='../img/review/$review_img'>";
+									}
+									?>
+									<?=$row['content']?>
+								</span>
+								<?php
+								$review_num = $row['wnum'];
+								if(isset($_SESSION['id'])) {
+									if($row['wid']==$_SESSION['id'] || $_SESSION['grade']==1) { ?>
+										<div class="modify_del_btn_area">
+											<button type="button" onclick="location.href='../mypage/review_del.php?num=<?=$review_num?>'">삭제</button>
+										</div>
+								<?php }
+								} ?>
+								
+							</div>
+						</li>
+					<?php } ?>
+					</ul>
+			</div>
+		</section>
+	</main>
+	<?php
+	include("../footer.html");
+	?>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../css/join.css?ver">
+
+	<title>새마음</title>
+
+	<script type="text/javascript" src="../js/jquery-1.12.3.js" defer="defer"></script>
+	<script type="text/javascript" src="../js/checkbox_check.js?ver" defer="defer"></script>
+	<script type="text/javascript" src="../js/join.js?ver" defer="defer"></script>
+	
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer="defer"></script>
+</head>
+<body onselectstart="return false">
+
+	<section>
+		<div class="logo">
+			<a href="../">
+				<img src="../img/logo.png" alt="logo">
+			</a>
+		</div>
+
+		<div class="form_div">
+			<form method="post" action="join.php">
+				<div class="form_block">
+					<div class="form_block_head">
+						<p>
+							<em class="red">*</em>
+							아이디
+						</p>
+					</div>
+					<div class="form_block_body">
+						<input type="text" class="input" onkeyup="id_check(event)" name="id" placeholder="아이디를 입력해주세요" autocomplete="off">
+						<div id="id_war" class="war_text">
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="form_block">
+					<div class="form_block_head">
+						<p>
+							<em class="red">*</em>
+							비밀번호
+						</p>
+					</div>
+					<div class="form_block_body">
+						<input type="password" class="input ps" name="pw" onkeyup="pwchk(event)" placeholder="비밀번호를 입력해주세요" autocomplete="off">
+						<div class="war_text war_ps">
+							
+						</div>
+					</div>
+					<div class="form_block_body">
+						<input type="password" class="input ps_check" name="pw_check" onkeyup="pw_checke(event)" placeholder="비밀번호를 다시 한번 입력해주세요" autocomplete="off">
+						<div class="war_text war_ps_check">
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="form_block">
+					<div class="form_block_head">
+						<p>
+							<em class="red">*</em>
+							이메일
+						</p>
+					</div>
+					<div class="form_block_body">
+						<input type="text" class="input email" id="email_input" name="email" onkeyup="email_check(event)" placeholder="이메일를 입력해주세요" autocomplete="off">
+						<input type="hidden" name="mail_rand" id="mail_rand">
+						<button type="button" class="email_btn" id="email_btn" onclick="email_submit()">메일 인증</button>
+						<input type="text" name="user_rand" class="email" id="user_rand" placeholder="인증번호를 입력해 주세요" style="display: none;" autocomplete="off">
+						<div class="ewar_text war_text">
+							<p class="war_tx"></p>
+						</div>
+					</div>
+				</div>
+
+				<div class="form_block">
+					<div class="form_block_head">
+						<p>
+							<em class="red">*</em>
+							이름
+						</p>
+					</div>
+					<div class="form_block_body">
+						<input type="text" class="input" name="name" placeholder="이름를 입력해주세요" autocomplete="off">
+						<div class="war_text">
+							
+						</div>
+					</div>
+				</div>
+				<!-- <tr><td>주소 *</td>
+                        <td><input type="text" name="address_port" id="sample6_postcode" placeholder="우편번호"> <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br><input type="text" name="address" id="sample6_address" placeholder="주소"><br><input type="text" name="address_detail" id="sample6_detailAddress" placeholder="상세주소"><input type="text" id="sample6_extraAddress" placeholder="참고항목">
+                    </td></tr> -->
+                <div class="form_block">
+					<div class="form_block_head">
+						<p>
+							<em class="red">*</em>
+							주소
+						</p>
+					</div>
+					<div class="form_block_body">
+						<input type="text" name="address_port" class="email" id="sample6_postcode" placeholder="우편번호" autocomplete="off"> <button type="button" class="email_btn" onclick="address_search()">우편번호 찾기</button>
+						<input type="text" name="address" class="input" id="sample6_address" placeholder="주소" autocomplete="off">
+						<input type="text" name="address_detail" class="input" id="sample6_detailAddress" placeholder="상세주소" autocomplete="off">
+						<div class="war_text">
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="form_block">
+					<div class="form_block_head">
+						<p>
+							<em class="red">*</em>
+							휴대 전화 (- 빼고 입력)
+						</p>
+					</div>
+					<div class="form_block_body">
+						<input type="text" class="input phone" name="phone" placeholder="휴대 전화 번호를 입력해주세요" onkeypress="return fn_press(event, 'numbers')" onkeydown="press_han(this);" style="ime-mode: disabled;" required maxlength="11" autocomplete="off">
+						<div class="war_text">
+							
+						</div>
+					</div>
+				</div>
+				
+				<div class="checkbox_container">
+					<input type="checkbox" class="check" style="width: 15px; height: 15px;" name="check_all" id="check_all">
+					<label for="check_all">모두 동의합니다</label>
+					<div class="checkbox_container_border">
+						<input type="checkbox" class="check" style="width: 15px; height: 15px;" name="check" id="check1">
+						<label for="check1">이용약관 필수 동의</label>
+						<br>
+						<input type="checkbox" class="check" style="width: 15px; height: 15px;" name="check" id="check2">
+						<label for="check2">개인정보 처리방침 필수 동의</label>
+						<br>
+						<input type="checkbox" class="check" style="width: 15px; height: 15px;" name="check" id="check3">
+						<label for="check3">쿠폰/이벤트 알림 선택 동의
+							<br>&nbsp;&nbsp;&nbsp;&nbsp; SNS, 이메일을 통해 쿠폰 및 이벤트 정보를 받아보실 수 있습니다</label>
+					</div>
+				</div>
+
+				<input type="submit" value="회원가입하기">
+				
+			</form>
+			<p style="margin-bottom: 40px;">단, 14세 미만은 회원가입할 수 없습니다.</p>
+		</div>
+	</section>
+
+</body>
+</html>

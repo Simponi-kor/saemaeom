@@ -1,0 +1,12 @@
+모든 상품 공통&lt;br&gt;&grave; 상품 마감일 후에는 즉시 제작 및 실행에 착수하는 상품 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.&lt;br&gt;&grave; 예상 전달일로부터 6일 이상 선물 전달이 이뤄지지 않을 경우, 환불을 원하시는 분들께는 수수료를 제한 후원금을 환불해 드립니다.&lt;br&gt;&lpar;플랫폼 수수료: 모금액의 5&percnt;, 부가세 별도 &sol; 결제 수수료: 결제 성공액의 3&percnt;, 부가세 별도&rpar;&lt;br&gt;&period; 배송이 필요한 물품이 있는 경우&lt;br&gt;&grave; 파손 또는 불량품 수령 시 3일 이내로 교환이 가능합니다.&lt;br&gt;&grave; 교환 및 AS 문의는 '창작자에게 문의하기'로 신청해 주세요.&lt;br&gt;&grave; 파손이나 불량품 교환시 발생하는 비용은 창작자가 부담합니다. 선물 확인을 위한 포장 훼손 외에 아이템의 가치가 훼손된 경우에는 교환 및 환불이 불가합니다.&lt;br&gt;&grave; 후원자가 배송지를 잘못 기재하거나 창작자에게 사전 고지 없이 배송지를 수정하여 배송사고가 발생할 경우 창작자는 최대 2번까지 재발송 해 드립니다. 배송비 부담은 후원자에게 있습니다.&lt;br&gt;&period; 공연&sol;행사 등 현장수령으로 이루어지는 선물의 경우&lt;br&gt;&grave; 행사 참가권은 타인에게 양도가 불가능합니다.&lt;br&gt;&grave; 현장에서 수령해야 하는 선물을 수령하지 못하신 경우 환불은 불가능하며, 선물 배송을 위한 추가 배송비를 별도 요청드릴 수 있습니다.&lt;br&gt;&period; 디지털 콘텐츠로 이뤄진 선물의 경우&lt;br&gt;&grave; 전달된 파일에 심각한 결함이나 저작권상 문제가 있을 경우, 수수료 제외하여 환불 가능합니다.&lt;br&gt;&grave; 전달된 파일은 타인에게 양도가 합니다.
+
+
+select board. id,title,one_line, kind, board_detail. address, phone, business_hours, menu, text, board_img_src. img1, img2, img3, img4, img5 FROM board INNER JOIN board_detail ON board.id = board_detail.id INNER JOIN board_img_src ON board_detail.id = board_img_src.id where board.id = '$id1'"
+
+member.name = product.marketer
+member(name, email, address, phone)
+product(*)
+SELECT member. name, email, address, phone, product. num, pname, price, marketer, pcategory, achievement, max_achievement, refund, pdate, option, first_img, content_img, accept FROM member INNER JOIN  product ON member.name = product.marketer;
+ON member.name = product.marketer
+
+

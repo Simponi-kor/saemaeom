@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/admin.css?ver">
+    <link rel="stylesheet" href="../fontawesome-free-5.14.0-web/css/all.css">
+    <title>새마음</title>
+    <script type="text/javascript" src="../js/jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="../js/admin.js?ver"></script>
+</head>
+<body>
+    <?php
+    include("../db/dbcon.php");
+    session_start();
+    $id = $_SESSION['id'];
+    ?>
+    <div class="modal" id="modal">
+        <div class="modal_content">
+            <div class="modal_content_top">
+               <h2>wpahr</h2><span class="modal_close">&times;</span>
+            </div>
+            <div class="modal_content_bot">
+            </div>
+        </div>
+        <div class="modal_layer modal_close"></div>
+    </div>
+
+    <div class="modal" id="message_modal">
+        <div class="modal_content">
+            <div class="modal_content_top">
+               <h2>알림 보내기</h2><span class="modal_close">&times;</span>
+            </div>
+            <div class="modal_content_bot">
+                <form action="./notify_action.php" method="POST">
+                    <input type="hidden" name="user_id_hidden" id="user_id_hidden">
+                    <select name="m_category" class="m_category" id="m_category">
+                        <option value="알림 / 공지">알림 / 공지</option>
+                        <option value="배송 / 목표 달성">배송 / 목표 달성</option>
+                        <option value="미배송 / 목표 미달성">미배송 / 목표 미달성</option>
+                    </select><br>
+                    <textarea name="message" class="message_tarea" id="message_tarea" cols="30" rows="10"></textarea>
+                    <input type="submit" class="notify_form_submit basic_btn" value="알림 보내기">
+                </form>
+            </div>
+        </div>
+        <div class="modal_layer modal_close"></div>
+    </div>
+
+    <main>
+        <div class="main">
+            <div class="main_top">
+                <div class="main_top_logo">
+                    <a href="../">
+                        <img src="../img/logo.png" alt="logo" title="logo">
+                    </a>
+                    <span>관리자 페이지</span>
+                </div>
+                <ul class="main_top_user">
+                    <li>
+                        <a href="../login/logout.php">
+                            <img src="../img/menu/lockdown.png" alt="logout">
+                        </a>
+                    </li>
+                    <li>
+                        <img src="../img/admin/profile.png" alt="logout">
+                        <span><?=$id?></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="main_bot">
+                <nav class="main_bot_left">
+                    <ul>
+                        <li class="menu_li active" value="0">
+                            <i class="fas fa-user-cog li_white"></i>
+                            <span>회원 관리</span>
+                        </li>
+                        <li class="menu_li" value="1">
+                            <i class="fas fa-cart-plus li_white"></i>
+                            <span>판매 등록 대기</span>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="main_bot_right">
+                    <div class="main_bot_right_top">
+                        <h2>회원 관리</h2>
+                    </div>
+                    <div class="main_bot_right_bot">
+                        <div class="member menu_detail">
+                            <div class="search">
+                                <div class="search_option">
+                                    <select name="grade" id="grade">
+                                        <option value="all">전체</option>
+                                        <option value="normal">일반 회원</option>
+                                        <option value="marketer">판매자</option>
+                                    </select>
+                                    <span class="options">
+                                        <input type="radio" name="search_option" value="id" id="search_id" checked><label for="search_id"> 아이디</label>
+                                    </span>
+                                    <span class="options">
+                                        <input type="radio" name="search_option" value="name" id="search_name"><label for="search_name"> 이름</label>
+                                    </span>
+                                    <span class="options">
+                                        <input type="radio" name="search_option" value="email" id="search_email"><label for="search_email"> 이메일</label>
+                                    </span>
+                                </div>
+                                <input type="text" name="keyword" class="keyword" id="keyword">
+                            </div>
+                            <br>
+                            <table class="member_table" id="member_table">
+                                <thead>
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>아이디</th>
+                                        <th>이름</th>
+                                        <th>이메일</th>
+                                        <th>휴대 전화</th>
+                                        <th>우편 번호</th>
+                                        <th>주소</th>
+                                        <th>등급</th>
+                                        <th>관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+
+                                    $number = 1;
+                                    $sql = "SELECT * FROM member";
+                                    $result = $mysqli->query($sql);
+                                    while($row = mysqli_fetch_array($result)) {
+                                        $phone1 = $row['phone'];
+                                        $phone2 = substr_replace($phone1, "-", 3,0);
+                                        $phone = substr_replace($phone2, "-", 8,0);
+                                        if($row['grade'] == 2) {
+                                            $grade = "판매자";
+                                        }else {
+                                            $grade = "일반 회원";
+                                        }
+                                        if($row['grade'] == 1) {
+                                            continue;
+                                        }
+                                    ?>
+                                    <tr>
+                                        <td><?=$number?></td>
+                                        <td><?=$row['id']?></td>
+                                        <td><?=$row['name']?></td>
+                                        <td><?=$row['email']?></td>
+                                        <td><?=$phone?></td>
+                                        <td><?=$row['address_port']?></td>
+                                        <td><?=$row['address']." ".$row['address_detail']?></td>
+                                        <td>
+                                            <select name="grade_select" id="grade_select">
+                                                <?php
+                                                if($row['grade']== 3) { ?>
+                                                    <option value="maketer">판매자</option>
+                                                    <option value="normal" selected>일반 회원</option>
+                                                <?php }else { ?>
+                                                   <option value="maketer" selected>판매자</option><option value="normal">일반 회원</option>
+                                            <?php } ?>
+                                            </select>
+                                            
+                                        </td>
+                                        <td>
+                                            <button type="button" id="member_message_btn" value="<?=$row['id']?>" class="basic_btn member_message_btn"><i class="far fa-envelope"></i></button>
+                                            <button type="button" id="member_modify_btn" value="<?=$row['num']?>" class="basic_btn member_modify_btn"><i class="fas fa-cog"></i></button>
+                                            <button type="button" id="member_del_btn" value="<?=$row['num']?>" class="basic_btn member_del_btn"><i class="far fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php $number++; } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end member -->
+
+                        <div class="sales_waiting menu_detail">
+                            <table class="product_table" id="product_table">
+                                <thead>
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>대표 이미지</th>
+                                        <th>상품 이름</th>
+                                        <th>가격</th>
+                                        <th>옵션</th>
+                                        <th>목표일</th>
+                                        <th>판매자</th>
+                                        <th>상태</th>
+                                        <th>상세 보기</th>
+                                        <th>승인</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+
+                                    $number = 1;
+                                    $sql = "SELECT * FROM product WHERE accept = 0";
+                                    $result = $mysqli->query($sql);
+                                    while($row = mysqli_fetch_array($result)) {
+                                        if($row['accept'] == 0) {
+                                            $accept = "미승인";
+                                        }else if($row['accept']) {
+                                            $accept = "승인";
+                                        }
+                                    ?>
+                                    <tr>
+                                        <td><?=$number?></td>
+                                        <td><img src="../img/product/<?=$row['first_img']?>" alt="<?=$row['first_img']?>" title="<?=$row['first_img']?>"></td>
+                                        <td><?=$row['pname']?></td>
+                                        <td><?=$row['price']?></td>
+                                        <td><?=$row['product_option']?></td>
+                                        <td><?=$row['pdate']?></td>
+                                        <td><?=$row['marketer']?></td>
+                                        <td><?=$accept?></td>
+                                        <td>
+                                            <button type="button" class="basic_btn product_detail_btn" id="product_detail_btn" value="<?=$row['content_img'].'|'.$row['pname']?>"><i class="far fa-clone fa-2x"></i></button>
+                                        </td>
+                                        <td>
+                                            <button type="button" id="product_accept" value="<?=$row['num']?>" class="basic_btn"><i class="far fa-check-circle fa-2x"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php $number++; } ?>
+                                </tbody>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+    
+</body>
+</html>

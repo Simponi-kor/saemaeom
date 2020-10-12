@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+    <!-- include summernote css/js-->
+    <!-- <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script> -->
+    <script type="text/javascript" src="nse/nse_files/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/upload_product.css?ver">
+    <title>새마음</title>
+    <!-- <script src="../js/jquery-1.12.3.js" defer="defer"></script> -->
+</head>
+
+<body>
+
+    <?php
+	include('../header.html');
+	include('../db/dbcon.php');
+
+	
+    ?>
+    <main>
+        <section class="content">
+            <div class="title">
+                <h1 style="text-align: center;">
+                    <div class="re">준비 중</div> <span id="project_pre_title">상품 제목</span>
+                </h1>
+            </div>
+            <div class="content_comment"  style="text-align: center;">
+                <span>상품을 개설하려면 네 개의 섹션을 완성해야 합니다.</span>
+            </div>
+            <ul class="menu_ul">
+                <li>
+                    <em id="menu_font1" style="font-style: normal; color: #83dda7;">●</em> 
+                    <span id="content1">상품 개요</span>
+                </li>
+                <li>
+                    <em id="menu_font2" style="font-style: normal; color: #B7B6B6;">●</em> 
+                    <span id="content2">목표 및 상품 구성</span>
+                    </li>
+                <li>
+                    <em id="menu_font3" style="font-style: normal; color: #B7B6B6;">●</em> <span id="content3">상품 설명</span>
+                    
+                </li>
+                <li>
+                    <em id="menu_font4" style="font-style: normal; color: #B7B6B6;">●</em> <span id="content4">인증 및 계좌 설정</span>
+                </li>
+            </ul>
+            
+            <form action="upload.php" method="POST" enctype="multipart/form-data">
+                <div class="content1">
+                    <span class="content_title">상품 개요</span>
+                    <ul class="project_ul">
+                        <li>
+                            <span class="project_title">상품 제목</span>
+                            <div class="content1_main1 content_main">
+                                <span class="project_description">상품에 멋진 제목을 붙여주세요. 감정에 호소하는 제목 보다는 만드시려는 창작물 작품명 혹은
+                                    상품의 주제가<br>드러나게 써주시는 것이 좋습니다. 공간이 부족한 곳에 쓰일 7자 이내의 짧은 제목도 정해주세요.</span><br><br>
+                                <input type="text" name="pname" placeholder="상품 제목을 입력해 주세요." onkeyup="project_title(event)">
+                                <br>
+                                <input type="text" name="EnName"  onkeydown="press_han(this);" style="ime-mode: disabled;" max="16" placeholder="상품 영문 제목을 입력해 주세요" >
+                            </div>
+                                <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                            
+                        </li>
+                        <li>
+                            <span class="project_title">상품 대표 이미지</span>
+                            <div class="content_main">
+                                <span class="project_description">대표 이미지는 상품의 가장 중요한 시각적 요소입니다.<br>후원자들이 상품의 내용을 쉽게
+                                    파악하고 좋은 인상을 받을 수 있게 하기 위해 깔끔한 이미지를 올려주세요.</span>
+
+                                <div class="filebox">
+                                    <label for="main_img"><img src="../img/icon/file_up.jpg" id="preview_img"></label>
+                                    <input type="file" name="first" id="main_img" accept=".jpg" >
+                                </div>
+                            </div>
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                            </li>
+                        <li>
+                            <span class="project_title">상품 카테고리</span>
+                            <div class="content_main">
+                                <span class="project_description">상품의 성격에 맞는 카테고리를 선택해주세요. <br><br>(상품 성격과 맞지 않는 카테고리를
+                                    선택하실 시 후원자가 해당 상품를 찾기 어려워지므로 관리자에 의해 조정될 수 있습니다.)</span>
+                                <select name="category" onchange="select_category(this)" class="category_select">
+                                    <option value="" selected>상품 카테고리를 정해주세요.</option>
+                                    <option value="jewerly">장신구</option>
+                                    <option value="phoneCase">휴대폰 케이스</option>
+                                    <option value="bag">가방</option>
+                                    <option value="art">예술품</option>
+                                    <option value="interior">인테리어</option>
+                                </select>
+                            </div>
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                            </li>
+                    </ul>
+                </div>
+                <div class="content2">
+                    <span class="content_title">펀딩 목표 설정</span>
+                    <ul class="project_ul">
+                        <li>
+                            <span class="project_title">목표 인원 및 최대 인원</span>
+                            <div class="content_main">
+                                <span class="project_description">이번 상품을 통해 목표하고자 하는 목표 인원이 몇명인가요?<br>마감일 자정까지 목표 인원을 100%
+                                    이상 달성하셔야만 모인 후원금이 결제 됩니다.</span>
+                                <br>
+                                <div class="achievement_area">
+                                    <h3>목표 인원<br><input type="number" name="achievement" min="40" value="40"> 명
+                                    </h3>
+                                    <span style="color: red;">* 40명 이상의 인원을 입력해 주세요</span>
+                                </div>
+                                <br>
+                                <div class="max_achievement_area">
+                                    <h3>최대 인원<br><input type="number" name="max_achievement" min="40" value="40"> 명</h3>
+                                </div>
+
+                            </div>
+
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                            </li>
+                        <li>
+                            <span class="project_title">상품 마감일</span>
+                            <div class="content_main">
+                                <span class="project_description">펀딩이 끝나는 마감일을 정해주세요.</span>
+                                <div class="precautions">
+                                    <h3>마감일을 정할 때 주의할 점</h3>
+                                    <span>펀딩 마감일음 오늘로부터 60일 이내의 날짜 중에 고르실 수 있습니다. 이미 선물을 만드셨으면, 선물 시행일 중에<br>
+                                        이른 날짜가 있지는 않은지 꼭 확인해주요. </span>
+                                </div>
+                                <?php  $date=date("Y-m-d"); ?>
+                                <input type="date" name="pdate" min="<?=$date?>">
+                            </div>
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                            </li>
+                    </ul>
+                    <span class="content_title">상품 구성 및 펀딩 안내</span>
+                    <ul class="project_ul">
+                        <li>
+                            <span class="project_title">상품 추가</span>
+                            <div class="content_main">
+                                <p class="project_description">상품의 추가 옵션을 만들어 주세요</p>
+                                <input type="text" id="option_input"> <button type="button" class="option_btn"
+                                    onclick="addOption()">추가</button>
+                                <br><br>
+                                <table id="option_table">
+                                    <thead>
+                                        <tr>
+                                            <th>옵션</th>
+                                            <th>삭제</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                <input type="hidden" name="option" id="option_hidden" >
+                                <button type="button" class="option_com" onclick="optionsub()">옵션 입력 완료</button>
+                            </div>
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="project_title">상품 가격</span>
+                            <div class="content_main">
+                                <p class="project_description">상품의 가격을 정해 주세요</p>
+                                <input type="text" name="price"  onKeyup="this.value=this.value.replace(/[^0-9]/g,'')">
+                            </div>
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="project_title">환불 및 교환 정책</span>
+                            <div class="content_main">
+                                <span class="project_description">펀딩 마감 후의 환불 및 교환 요청은 창작자가 약속하는 정책에 따릅니다.<br>후원자의 단순변심,
+                                    제품의 파손 및 불량, 창작자의 예기치 못한 선물 실행 지연 등 다양한 상황을 고려하여 내용을 작성해주세요.<br>(필수 항목이 모두 포함되어야만
+                                    공개승인이 가능합니다. 환불 및 교환 정책 작성 가이드 확인하기) <br><span style="color: #FF6E6E;">[ ] 안의 문구를
+                                        상품에 적합한 내용으로 변경해주세요.</span></span><br>
+                                <input type="hidden" name="refund1" value="<h1>• 모든 상품 공통</h1><br>- 상품 마감일 후에는 즉시 제작 및 실행에 착수하는 상품 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.<br>- 예상 전달일로부터 ">
+                                <input type="hidden" name="refund3" value="일 이상 선물 전달이 이뤄지지 않을 경우, 환불을 원하시는 분들께는 ">
+                                <input type="hidden" name="refund5" value=" 후원금을 환불해 드립니다.<br>(플랫폼 수수료: 모금액의 5%, 부가세 별도 / 결제 수수료: 결제 성공액의 3%, 부가세 별도 )<br><br> <h1>• 배송이 필요한 물품이 있는 경우</h1> <br>- 파손 또는 불량품 수령 시 ">
+                                <input type="hidden" name="refund7" value="일 이내로 교환이 가능합니다.<br>- 교환 및 AS 문의는 창작자에게 문의하기로 신청해 주세요.<br>- 파손이나 불량품 교환시 발생하는 비용은 창작자가 부담합니다. 선물 확인을 위한 포장 훼손 외에 아이템의 가치가 훼손된 경우에는 교환 및 환불이 불가합니다.<br>- 후원자가 배송지를 잘못 기재하거나 창작자에게 사전 고지 없이 배송지를 수정하여 배송사고가 발생할 경우 창작자는 최대 ">
+                                <input type="hidden" name="refund9" value="번까지 재발송 해 드립니다. 배송비 부담은 ">
+                                <input type="hidden" name="refund11" value="에게 있습니다.<br><br><h1>• 공연/행사 등 현장수령으로 이루어지는 선물의 경우</h1><br>- 행사 참가권은 타인에게 양도가 ">
+                                <input type="hidden" name="refund13" value="합니다.<br>- 현장에서 수령해야 하는 선물을 수령하지 못하신 경우 환불은 ">
+                                <input type="hidden" name="refund15" value="하며, 선물 배송을 위한 추가 배송비를 별도 요청드릴 수 있습니다.<br><br><h1>• 디지털 콘텐츠로 이뤄진 선물의 경우</h1><br>- 전달된 파일에 심각한 결함이나 저작권상 문제가 있을 경우, 수수료 ">
+                                <input type="hidden" name="refund17" value="하여 환불 가능합니다.<br>- 전달된 파일은 타인에게 양도가 ">
+                                <input type="hidden" name="refund19" value="합니다.">[ • 모든 상품 공통 ]<br>- 상품 마감일 후에는 즉시 제작
+                                및 실행에 착수하는 상품 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.<br>- 예상 전달일로부터 [ <input type="number" min="1" value="0" name="refund2"  class="num_input"> ] 일 이상 선물 전달이 이뤄지지 않을 경우, 환불을 원하시는 분들께는 [ <input type="radio" name="refund4" value="수수료를 제한" id="refund4_1" > <label for="refund4_1">수수료를 제한</label> / <input type="radio" name="refund4" value="수수료를 포함한" id="refund4_2" > <label for="refund4_2">수수료를 포함한</label> ] 후원금을 환불해 드립니다.<br>(플랫폼 수수료: 모금액의 5%, 부가세 별도 / 결제 수수료: 결제 성공액의 3%, 부가세 별도 )<br>[ • 배송이
+                                필요한 물품이 있는 경우 ]<br>- 파손 또는 불량품 수령 시 [ <input type="number" name="refund6" min="1" value="0" class="num_input"> ]일 이내로 교환이 가능합니다.<br>- 교환 및 AS 문의는 '창작자에게 문의하기'로 신청해 주세요.<br>-
+                                파손이나 불량품 교환시 발생하는 비용은 창작자가 부담합니다. 선물 확인을 위한 포장 훼손 외에 아이템의 가치가 훼손된 경우에는 교환 및 환불이
+                                불가합니다.<br>- 후원자가 배송지를 잘못 기재하거나 창작자에게 사전 고지 없이 배송지를 수정하여 배송사고가 발생할 경우 창작자는 최대 [ <input type="number" name="refund8" min="1" value="0"  class="num_input"> ]번까지 재발송 해 드립니다. 배송비 부담은 [
+                                <input type="radio" name="refund10" value="창작자" id="refund10_1" > <label for="refund10_1">창작자</label> / <input type="radio" name="refund10" value="후원자" id="refund10_2" > <label for="refund10_2">후원자</label> ]에게 있습니다.<br>[ • 공연/행사 등 현장수령으로 이루어지는 선물의 경우 ]<br>- 행사 참가권은 타인에게 양도가 [ <input type="radio" name="refund12" value="가능" id="refund12_1" > <label for="refund12_1">가능</label> / <input type="radio" name="refund12" value="불가능" id="refund12_2" > <label for="refund12_2">불가능</label> ]합니다.<br>- 현장에서 수령해야 하는 선물을 수령하지 못하신 경우 환불은 [ <input type="radio" name="refund14" value="가능" id="refund14_1" > <label for="refund14_1">가능</label> / <input type="radio" name="refund14" value="불가능" id="refund14_2" > <label for="refund14_2">불가능</label> ]하며, 선물 배송을 위한 추가 배송비를 별도 요청드릴 수 있습니다.<br>[ • 디지털 콘텐츠로 이뤄진 선물의 경우 ]<br>- 전달된 파일에 심각한 결함이나 저작권상 문제가 있을 경우, 수수료 [
+                                <input type="radio" name="refund16" value="포함" id="refund16_1" > <label for="refund16_1">포함</label> / <input type="radio" name="refund16" value="제외" id="refund16_2" > <label for="refund16_2">제외</label> ]하여 환불 가능합니다.<br>- 전달된 파일은 타인에게 양도가 [ <input type="radio" name="refund18" value="가능" id="refund18_1" >
+                                <label for="refund18_1">가능</label> / <input type="radio" name="refund18" value="불가능" id="refund18_2" > <label for="refund18_2">불가능</label> ]합니다.
+                            </div>
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                            </li>
+                    </ul>
+                </div>
+                <div class="content3">
+                    <span class="content_title">상품 스토리</span>
+                    <ul class="project_ul">
+                        <li>
+                            <span class="project_title">상품 스토리</span>
+                            <div class="content_main">
+                                <span class="project_decription">- 무엇을 만들기 위한 상품인가요? 이 상품의 특별한 점은 무엇인가요? <br>- 만들고자 하는 제품이나 창작물 샘플, 콘텐츠 미리보기 등을 공유해 주세요. 매력적인 사진과그림은 후원자 참여에 중요한 역할을 합니다</span><br><br>
+                                <p class="project_title">제품 근원지</p>
+                                <p class="project_description">- 이 제품의 원재료가 무엇인가요? 이 제품의 특별한 장소는 어디 인가요?<br>- 근원지를 좀 더 자세히 알려주면 후원자에게 도웁이 됩니다.</p>
+                                <input type="text" name="origin_place" >
+                                    <textarea name="ir1" id="ir1" class="nse_content" ></textarea>
+                                    <!-- <textarea id="txtContent" rows="10" cols="100" style="width: 100%;"></textarea> -->
+
+                                    <script type="text/javascript">
+                                    
+                                    var oEditors = [];
+                                    nhn.husky.EZCreator.createInIFrame({
+                                    oAppRef: oEditors,
+                                    elPlaceHolder: "ir1",
+                                    sSkinURI: "./nse/nse_files/SmartEditor2Skin.html",
+                                    fCreator: "createSEditor2"
+                                    });
+                                    function submitContents(elClickedObj) {
+                                    oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다. 
+                                    // 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다.
+
+                                    try {
+                                    elClickedObj.form.submit();
+                                    } catch(e) {}
+                                    }
+                                    // $(() => { nhn.husky.EZCreator.createInIFrame({ oAppRef: editor, elPlaceHolder: 'txtContent', sSkinURI: './nse/nse_files/SmartEditor2Skin.html', fCreator: 'createSEditor2' }); });
+
+                                    </script>
+                                    <script src="../js/file_up.js?ver" defer="defer"></script>
+                            </div>
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                            </li>
+                    </ul>
+                    
+                </div>
+                <div class="content4">
+                    <span class="content_title">이메일 인증</span>
+                    <ul class="project_ul">
+                        <li>
+                            <span class="project_title">이메일 입력</span>
+                            <div class="content_main">
+                                <input type="text" class="input email" id="email_input" name="email" onkeyup="email_check(event)" placeholder="이메일를 입력해주세요" autocomplete="off">
+                                <input type="hidden" name="mail_rand" id="mail_rand" >
+                                <button type="button" class="email_btn" id="email_btn" onclick="email_submit()">메일 인증</button>
+                                <input type="text" name="user_rand" class="email" id="user_rand" placeholder="인증번호를 입력해 주세요" style="display: none;" autocomplete="off" >
+                                <p class="war_tx"></p>
+                            </div>
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <span class="content_title">계좌 입력</span>
+                    <ul class="project_ul">
+                        <li>
+                            <div class="content_main">
+                                <span class="project_title">계좌 번호 입력</span>
+                                <br>
+                            </div>
+                            <div class="content_main">
+                                <select name="bank_category" onchange="select_category(this)" class="category_select">
+                                    <option value="" selected>은행을 선택해 주세요</option>
+                                    <option value="NH">NH농협</option>
+                                    <option value="kakao">카카오 뱅크</option>
+                                    <option value="ibk">기업 은행</option>
+                                    <option value="kbank">K뱅크</option>
+                                </select>
+                                <input type="text" name="bank"  onkeypress="return fn_press(event, 'numbers')" onkeydown="press_han(this);" style="ime-mode: disabled;" max="16">
+                                <br>
+                                <button type="submit" class="submit_btn" onclick="submitContents(this)" >상품 올리기</button>
+                            </div>
+                            <div class="open_btn_area">
+                                <img src="../img/icon/write.png">
+                                <button type="button" class="open_btn" onclick="showhide(event)">입력하기</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+            <!-- <script>
+                $(document).ready(function() {
+                    $("#summernote").summernote({
+                        
+                        height:300,
+                        callbacks: {
+                            onImageUpload:function(files, editor, welEditable){
+                                for(var i = files.length - 1;i>=0;i--){
+                                    sendFile(files[i], this);
+                                }
+                            }
+                        }
+                    });
+                });
+                
+                function sendFile(file, el, welEditable){
+                    var form_data = new FormData();
+                    form_data.append('file', file);
+                    $.ajax({
+                        data:form_data,
+                        type:"POST",
+                        url:'./editor-upload.php',
+                        cache:false,
+                        contentType:false,
+                        processData:false,
+                        success:function(url){
+                            $(el).summernote('editor.insertImage', $.trim(url));
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+                }
+                </script> -->
+        </section>
+    </main>
+    
+</body>
+
+</html>

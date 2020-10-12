@@ -1,0 +1,251 @@
+section {
+	/*width: 1920px;*/
+	padding: 0px;
+	margin: 0px auto;
+    background-color: #fff;
+    text-align: center;
+    font-family: "맑은 고딕";
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+main {
+	width: 100%;
+}
+
+.search_box {
+	width: 1096px;
+	height: 166px;
+	border: 2px solid;
+	margin: 0 auto;
+	margin-top: 80px;
+	margin-bottom: 50px;
+}
+
+.search_box_top {
+	height: 51px;
+	padding-top: 19px;
+}
+
+.search_box_top h2 {
+	text-align: center;
+}
+
+.search_box_mid, .search_box_bot {
+	padding: 0px 20px;
+}
+
+.search_box_mid {
+	height: 46px;
+	border-top: 1px solid #bcbcbc;
+	border-bottom: 1px solid #bcbcbc;
+}
+
+.search_box_mid ul {
+	display: flex;
+}
+
+.search_box_mid ul li {
+	padding-top: 9px;
+	width: 200px;
+}
+
+.search_box_mid ul li:nth-child(3) {
+	/*padding-top: 9px;*/
+	width: 250px;
+}
+
+#jewerly:checked~#jewerly_label{background-color: #CEFBC9;}
+#bag:checked~#bag_label{background-color: #CEFBC9;}
+#phoneCase:checked~#phoneCase_label{background-color: #CEFBC9;}
+#art:checked~#art_label{background-color: #CEFBC9;}
+#interior:checked~#interior_label{background-color: #CEFBC9;}
+
+.hiddenbox {
+	display: none;
+}
+
+.checkbox_label {
+	display: inline-block;
+	width: 21px;
+	height: 21px;
+	background-color: #fff;
+	border: 2px solid #CEFBC9;
+	cursor: pointer;
+	float: left;
+}
+
+.checkbox_label_span {
+	/*font-weight: 600;*/
+	font-size: 15pt;
+	float: left;
+	color: #bcbcbc;
+}
+
+.search_box_bot {
+	height: 50px;
+}
+
+.search_box_bot ul {
+	display: flex;
+}
+
+.search_box_bot ul li {
+	/*font-weight: 600;*/
+	font-size: 15pt;
+	padding-top: 11px;
+}
+
+.radio_label {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border-radius: 20px;
+	border: 2px solid #83dda7;
+}
+
+#pro_all:checked~#pro_all_label{background-color: #CEFBC9;}
+#complete:checked~#complete_label{background-color: #CEFBC9;}
+#incomplete:checked~#incomplete_label{background-color: #CEFBC9;}
+
+.green {
+	color: #83dda7;
+}
+
+.pro_list_total {
+	/*상품리스트*/
+
+	width: 1100px;
+	/*height: 350px;*/
+	/*background-color: #f0f0f0;*/
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+.pro_list_total ul {
+	width: 1100px;
+	float: left;
+	padding: 0px;
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 50px;
+}
+
+.pro_list_total .pro_list_item {
+	/*상품리스트 상품1개*/
+
+	width: 198px;
+	height: 312px;
+	float: left;
+	margin-right: 25px;
+	margin-bottom: 25px;
+	border: 1px solid #afafaf;
+}
+
+.pro_list_total .pro_list_item:nth-child(5n) {
+	/*상품리스트 상품1개 마지막*/
+
+	margin-right: 0px;
+}
+
+.pro_list_total .pro_list_item .pro_list_item_top {
+	/*상품이미지*/
+
+	width: 198px;
+	height: 180px;
+	/*background-color: #afa3;*/
+
+}
+
+.pro_list_total .pro_list_item .pro_list_item_top img {
+	/*상품 이미지 크기*/
+	width: 198px;
+	height: 180px;
+}
+
+.pro_list_total .pro_list_item .pro_list_item_bottom {
+	/*상품 아래*/
+	width: 170px;
+	height: 110px;
+	/*background-color: #F4F0D3;*/
+	/*border: 1px solid #afafaf;*/
+	padding: 10px 15px;
+	text-align: left;
+}
+
+.pro_list_total .pro_list_item .pro_list_item_bottom .pro_title {
+	/*상품 제목*/
+	
+	min-height: 37px;
+	font-size: 10pt;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.pro_list_total .pro_list_item .pro_list_item_bottom .pro_writer {
+	/*상품 제작자*/
+	font-size: 8pt;
+	margin-bottom: 10px;
+}
+
+.pro_list_total .pro_list_item .pro_list_item_bottom .progress {
+	/*프로그레스 기간 퍼센트*/
+
+	width: 100%;
+
+	font-size: 5pt;
+}
+
+
+.pro_list_total .pro_list_item .pro_list_item_bottom progress {
+	/*프로그레스 바*/
+	
+	width: 100%;
+	height: 8px;
+	background-color: #f8f8f8;
+	margin-bottom: 5px;
+}
+
+.pro_list_total .pro_list_item .pro_list_item_bottom progress::-webkit-progress-bar {
+	background-color: #D5D5D5;
+
+}
+
+.pro_list_total .pro_list_item .pro_list_item_bottom progress::-webkit-progress-value {
+	
+	background-color: #83dda7;
+}
+
+
+.pro_list_total .pro_list_item .pro_list_item_bottom .progress img {
+	/*프로그레스 바 기간 달력 이미지*/
+	width: 15px;
+	float: left;
+}
+
+.pro_list_total .pro_list_item .pro_list_item_bottom .progress p{
+	/*프로그레스 바 기간 p 태그*/
+	
+	/*font-size: 8pt;*/
+	float: left;
+}
+
+.pro_list_total .pro_list_item .pro_list_item_bottom .progress font {
+	/*프로그레스 바 인원수 font 태그*/
+
+	/*font-size: 8pt;*/
+	float: right;
+}
+
+.pro_list_total .pro_list_item .pro_list_item_bottom .progress b {
+	/*프로그레스 바 퍼센트 b 태그*/
+
+	/*font-size: 8pt;*/
+	float: right;
+}

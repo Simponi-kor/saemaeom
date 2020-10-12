@@ -1,0 +1,50 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+section {
+	/*width: 1920px;*/
+	padding: 0px;
+	/* margin: 0px auto; */
+    background-color: #fff;
+    /* text-align: center; */
+    font-family: "맑은 고딕";
+    font-style: normal;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+main {
+    width: 100%;
+    margin: 80px 0px;
+}
+
+.content {
+    width: 1100px;
+    min-height: 400px;
+    margin: 0px auto;
+}
+
+.term_title {
+    font-size: 24pt;
+    font-weight: 600;
+    color: #afafaf;
+    margin-bottom: 30px;
+}
+
+.pre-scrollable {
+    max-width: 1100px;
+    max-height: 600px;
+    overflow-y: scroll;
+    border: 2px solid #afafaf;
+    border-radius: 5px;
+    padding: 10px;
+    white-space: pre-wrap;
+    background: #FCFCFC;
+}

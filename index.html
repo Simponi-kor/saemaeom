@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="css/header.css?ver">
+	<link rel="stylesheet" type="text/css" href="css/index.css?ver">
+	<link rel="stylesheet" type="text/css" href="css/footer.css?ver">
+	<link rel="stylesheet" href="css/modal.css">
+	
+	<title>새마음</title>
+
+	<script type="text/javascript" src="js/jquery-1.12.3.js" defer="defer"></script>
+	<script type="text/javascript" src="js/slide.js" defer="defer"></script>
+	<script type="text/javascript" src="js/fixedMenu.js" defer="defer"></script>
+	<script type="text/javascript" src="js/main_modal.js" defer="defer"></script>
+	
+</head>
+<body onselectstart="return false">
+	<div id="jeju_modal" class="modal">
+        <div class="modal_content index_modal">
+            <div class="jeju_top">
+                <h2><div id="jeju_title">제목</div><button type="button" class="modal_btn close_btn">&times;</button></h2>
+                <h4 id="jeju_date">2020.07.04</h4>
+            </div>
+            <div class="modal_main">
+                <div class="jeju_main">
+                    <button type="button" class="basic_btn" onclick="jeju_preview()">&lang;</button>
+                    <input type="hidden" id="img_num">
+                    <input type="hidden" id="img_length">
+                    <ul class="jeju_main_img">
+                        <li>
+                            <img src="img/jeju/1_2.jpg" alt="content" id="jeju_main_img">
+                        </li>
+                    </ul>
+                    <button type="button" class="basic_btn" onclick="jeju_next()">&rang;</button>
+                </div>
+                <div class="jeju_text">
+                    <p id="jeju_content">xdaddsadsad</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal_layer close_btn" onclick="modal_close()"></div>
+    </div>
+	<?php
+	session_start();
+	include("db/dbcon.php");
+
+	?>
+	<!-- 헤더 -->
+	<section id="header">
+		<header>
+			<div class="header_top">
+				<div class="header_top_all">
+					<div class="logo">
+						<a href="./index.html">
+							<img src="img/logo.png" alt="logo">
+						</a>
+					</div>
+					<form action="search/index.html" method="get">
+						<div class="search_div">
+							<input type="text" placeholder="검색어 입력" name="search_keyword" autocomplete="off">
+							<button type="submit"><i class="fa fa-search"></i></button>
+						</div>
+					</form>
+					<ul>
+						<li>
+							<?php
+							if(!isset($_SESSION['id'])) {
+								echo '<a href="login/index.html">
+										<img src="img/menu/lock.png" alt="mypage">
+									</a>';
+							}else {
+								echo '<a href="login/logout.php">
+										<img src="img/menu/lockdown.png" alt="mypage">
+									</a>';
+							}
+							?>
+						</li>
+
+						<?php
+						if(isset($_SESSION['id'])) {
+							echo '<li>
+									<a href="mypage/index.html">
+										<img src="img/menu/my.png" alt="mypage">
+									</a>
+								</li>';
+							echo '<li>
+									<a href="cart/">
+										<img src="img/icon/cart.png" alt="cart">
+									</a>
+								</li>';
+						}
+						if(isset($_SESSION['grade'])) {
+							if($_SESSION['grade'] == 2) {
+								echo '<li>
+										<a href="upload_product/">
+											<img src="img/menu/upload.png" alt="cart">
+										</a>
+									</li>';
+							}else if($_SESSION['grade'] == 1) {
+								echo '<li>
+									<a href="admin/">
+										<img src="img/menu/admin.png" alt="admin">
+									</a>
+								</li>';
+							}
+						}
+						?>
+					</ul>
+				</div>
+			</div>
+			<div class="header_bottom_all">
+				<div class="header_bottom">
+					<nav class="list">
+						<ul>
+							<li>
+								<a href="product_category/index.html?category=jewerly">
+									장신구
+								</a>
+							</li>
+							<li>
+								<a href="product_category/index.html?category=phoneCase">
+									휴대폰 케이스
+								</a>
+							</li>
+							<li>
+								<a href="product_category/index.html?category=bag">
+									가방
+								</a>
+							</li>
+							<li>
+								<a href="product_category/index.html?category=art">
+									예술품
+								</a>
+							</li>
+							<li>
+								<a href="product_category/index.html?category=interior">
+									인테리어
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+	</section>
+
+	<!-- 콘텐츠 -->
+	<section>
+		<div class="img_slide">
+			<input type="radio" name="pos" id="pos1" checked>
+			<input type="radio" name="pos" id="pos2">
+			<input type="radio" name="pos" id="pos3">
+			<!-- <input type="radio" name="pos" id="pos4"> -->
+			<ul>
+				<li><a href="./footer/about_saemaeom.html">
+					<img src="img/slide/slide4.png" alt="img_slide">
+				</a></li>
+
+				<li><a href="">
+					<img src="img/slide/slide1.png" alt="img_slide">
+				</a></li>
+
+				<li><a href="">
+					<img src="img/slide/slide2.png" alt="img_slide">
+				</a></li>
+			</ul>
+			<p class="pos">
+				<label for="pos1"></label>
+				<label for="pos2"></label>
+				<label for="pos3"></label>
+				<!-- <label for="pos4"></label> -->
+			</p>
+		</div>
+
+		<div class="content">
+			<div class="pro_list_all">
+				<div class="pro_list_text">
+					<p>추천 상품</p>
+					<ul>
+						<li><span onclick="previewlist(event)">&#60;</span></li>
+						<li><span onclick="nextlist(event)">&#62;</span></li>
+					</ul>
+				</div>
+
+				<div class="pro_list_total">
+					<ul id="pro_list_ul">
+						<?php
+
+						$sql = "SELECT * FROM product where accept=1";
+						$result = $mysqli->query($sql);
+
+						while($row = mysqli_fetch_array($result)) { ?>
+
+						<li class="pro_list_item item">
+							<div class="pro_list_item_top">
+								<a href="product_detail/index.html?num=<?=$row['num']?>">
+									<img src="img/product/<?=$row['first_img']?>" alt="<?=$row['first_img']?>">
+								</a>
+							</div>
+							<div class="pro_list_item_bottom">
+								<h3 class="pro_title"><?=$row['pname']?></h3>
+
+								<p class="pro_writer">
+									<?=$row['marketer']?>
+								</p>
+								
+								<div class="progress">
+									<progress value="<?=$row['current_achievement']?>" max="<?=$row['achievement']?>" ></progress>
+									<i class="far fa-calendar-alt"></i>
+									<?php
+									//날짜
+									$db_date = $row['pdate'];
+									$current_date = date("Y-m-d");
+									$start = new DateTime($current_date);
+									$end = new DateTime($db_date);
+									$date_diff =  date_diff($start, $end);
+
+									//퍼센트
+									$reach=$row['achievement']; //db 목표인원수
+									$current_reach=$row['current_achievement']; //db 현재 인원수
+
+									$pus = round(($current_reach/$reach)*100);
+
+									?>
+									<p><?=$date_diff->days?>일 남음</p>
+									<b><?=$pus?>%</b>
+									<font><?=$current_reach?>/<?=$reach?>(명)&nbsp;&nbsp;</font>
+								</div>
+							</div>
+						</li>
+						<?php } ?>
+					</ul>
+
+				</div> <!-- end pro_list_total -->
+			</div> <!-- end pro_list_all -->
+
+			<div class="pro_list_all">
+				
+				<div class="pro_list_text">
+					<p>인기 상품</p>
+					<ul>
+						<li><span onclick="previewlist(event)">&#60;</span></li>
+						<li><span onclick="nextlist(event)">&#62;</span></li>
+					</ul>
+				</div>
+				
+				<div class="pro_list_total">
+					<ul>
+						<?php
+
+						$sql = "SELECT * FROM product where pcategory='bag' AND accept=1";
+						$result = $mysqli->query($sql);
+					
+
+						while($row = mysqli_fetch_array($result)) { ?>
+
+						<li class="pro_list_item item">
+							<div class="pro_list_item_top">
+								<a href="product_detail/index.html?num=<?=$row['num']?>">
+									<img src="img/product/<?=$row['first_img']?>" alt="<?=$row['first_img']?>">
+								</a>
+							</div>
+							<div class="pro_list_item_bottom">
+								<h3 class="pro_title"><?=$row['pname']?></h3>
+
+								<p class="pro_writer">
+									<?=$row['marketer']?>
+								</p>
+								
+								<div class="progress">
+									<progress value="<?=$row['current_achievement']?>" max="<?=$row['achievement']?>" ></progress>
+									<i class="far fa-calendar-alt"></i>
+									<?php
+									//날짜
+									$db_date = $row['pdate'];
+									$current_date = date("Y-m-d");
+									$start = new DateTime($current_date);
+									$end = new DateTime($db_date);
+									$date_diff =  date_diff($start, $end);
+
+									//퍼센트
+									$reach=$row['achievement']; //db 목표인원수
+									$current_reach=$row['current_achievement']; //db 현재 인원수
+
+									$pus = round(($current_reach/$reach)*100);
+
+									?>
+									<p><?=$date_diff->days?>일 남음</p>
+									<b><?=$pus?>%</b>
+									<font><?=$current_reach?>/<?=$reach?>(명)&nbsp;&nbsp;</font>
+								</div>
+							</div>
+						</li>
+						<?php } ?>
+					</ul>
+
+				</div> <!-- end pro_list_total -->
+			</div> <!-- end pro_list_all -->
+
+			<div class="pro_list_all">
+				
+				<div class="pro_list_text">
+					<p><a href="./change_jeju/">변해지는 제주도</a></p>
+					<ul>
+						<li><span onclick="jeju_previewlist(event)">&#60;</span></li>
+						<li><span onclick="jeju_nextlist(event)">&#62;</span></li>
+					</ul>
+				</div>
+				<div class="pro_list_total">
+					<ul>
+						<?php
+                $sql = "select * from change_jeju";
+                $result = $mysqli->query($sql);
+
+                while($row = mysqli_fetch_array($result)) { 
+                    $main_img = $row['jeju_main_img'];
+                    $img_array = $row['jeju_img'];
+                    $content_array = $row['jeju_content'];
+                    $date = $row['jeju_date'];
+                    ?>
+                <li class="jeju_list_item item">
+                    <div>
+                        <input type="hidden" value="<?=$img_array?>">
+                        <input type="hidden" value="<?=$content_array?>">
+                        <input type="hidden" value="<?=$row['jeju_date']?>">
+                    </div>
+                    <img src="img/jeju/<?=$main_img?>" onclick="jeju_modal_show(event)">
+                    <div class="jeju_list_item_text">
+                        <!-- <h3>[월정리]</h3> -->
+                        <h4><?=$row['jeju_title']?></h4>
+                    </div>
+                </li>
+                <?php } ?>
+					</ul>
+
+				</div> <!-- end pro_list_total -->
+			</div> <!-- end pro_list_all -->
+
+			<div class="pro_list_all">
+				
+				<div class="pro_list_text">
+					<p>신규 상품</p>
+					<ul>
+						<li><span onclick="previewlist(event)">&#60;</span></li>
+						<li><span onclick="nextlist(event)">&#62;</span></li>
+					</ul>
+				</div>
+				
+				<div class="pro_list_total">
+					<ul>
+						<?php
+
+						$sql = "SELECT * FROM product WHERE accept=1 ORDER BY num desc";
+						$result = $mysqli->query($sql);
+
+						while($row = mysqli_fetch_array($result)) { ?>
+
+						<li class="pro_list_item item">
+							<div class="pro_list_item_top">
+								<a href="product_detail/index.html?num=<?=$row['num']?>">
+									<img src="img/product/<?=$row['first_img']?>" alt="<?=$row['first_img']?>">
+								</a>
+							</div>
+							<div class="pro_list_item_bottom">
+								<h3 class="pro_title"><?=$row['pname']?></h3>
+
+								<p class="pro_writer">
+									<?=$row['marketer']?>
+								</p>
+								
+								<div class="progress">
+									<progress value="<?=$row['current_achievement']?>" max="<?=$row['achievement']?>" ></progress>
+									<i class="far fa-calendar-alt"></i>
+									<?php
+									//날짜
+									$db_date = $row['pdate'];
+									$current_date = date("Y-m-d");
+									$start = new DateTime($current_date);
+									$end = new DateTime($db_date);
+									$date_diff =  date_diff($start, $end);
+
+									//퍼센트
+									$reach=$row['achievement']; //db 목표인원수
+									$current_reach=$row['current_achievement']; //db 현재 인원수
+
+									$pus = round(($current_reach/$reach)*100);
+
+									?>
+									<p><?=$date_diff->days?>일 남음</p>
+									<b><?=$pus?>%</b>
+									<font><?=$current_reach?>/<?=$reach?>(명)&nbsp;&nbsp;</font>
+								</div>
+							</div>
+						</li>
+						<?php } ?>
+					</ul>
+
+				</div> <!-- end pro_list_total -->
+			</div> <!-- end pro_list_all -->
+
+
+		</div> <!-- end content -->
+		
+	</section>
+	
+	<!-- 풋터 -->
+	<div class="footer">
+		<div class="footer2">
+			<div class="footer_menu">
+				<ul>
+					<li><a href="footer/terms.html">
+						이용약관
+					</a></li>
+
+					<li><a href="footer/personal_information.html">
+						개인정보 처리방침
+					</a></li>
+
+					<li><a href="footer/about_saemaeom.html">
+						About 새마음
+					</a></li>
+
+				</ul>
+			</div>
+		</div>
+
+			<div class="footer_bottom">
+				<img src="img/footer/footerlogo.png" alt="footerlogo">
+				<div class="footer_bottom_center">
+					<pre>
+(주) 훈하동
+
+대표이사 : 김하늘
+제주특별자치도 제주시 아라일동 산천단동3길 2
+사업자 등록번호 : 120-92-123495
+
+
+새마을은 통신판매중개자이며 통신판매의 당사자가 아닙니다.
+따라서 새마음은 상품 거래정보 및 거래에 대하여 책임을 지지 않습니다.
+					</pre>
+
+					<pre>
+고객센터 (주 7일, 오전 9시~저녁 10시까지)
+
+카카오톡     새마음
+대표번호     1588-3241
+메일         kokoroto325@naver.com
+
+
+
+새마음 이용 중 궁금하신 점이 있으신가요?
+메일 또는 플러스친구 ‘새마음’로 연락해주세요
+최선을 다해 도와드리겠습니다.
+					</pre>
+
+					<div class="footer_sns">
+						<p>Follow Us.</p>
+						<ul>
+							<li><a href="">
+								<img src="img/footer/facebook.png" alt="facebook">
+							</a></li>
+
+							<li><a href="">
+								<img src="img/footer/insta.png" alt="instagram">
+							</a></li>
+							<li><a href="">
+								<img src="img/footer/naver.png" alt="naver">
+							</a></li>
+
+							<li><a href="">
+								<img src="img/footer/twiter.png" alt="twiter">
+							</a></li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

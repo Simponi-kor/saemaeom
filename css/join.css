@@ -1,0 +1,136 @@
+section {
+	/*width: 1920px;*/
+	padding: 0px;
+	margin: 0px auto;
+    background-color: #fff;
+    text-align: center;
+    font-family: "맑은 고딕";
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.logo {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 60px;
+	padding-bottom: 60px;
+	border-bottom: 2px solid #000000;
+}
+
+.logo img {
+	width: 120px;
+	/* height: 100px; */
+}
+
+.form_div {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+
+.red {
+	color: red;
+	/*float: left;*/
+	margin-right: 5px;
+}
+
+.green {
+	color: green;
+	/*float: left;*/
+	margin-right: 5px;
+}
+
+.form_div form .form_block .form_block_head {
+	width: 500px;
+	margin-top: 20px;
+}
+
+.form_div form .form_block .form_block_head p {
+	width: 400px;
+	/*float: left;*/
+	text-align: left;
+	margin: 0px;
+	font-weight: bold;
+}
+
+.form_div form .form_block .form_block_body {
+	
+}
+
+.form_div form .form_block .form_block_body .input {
+	width: 480px;
+	height: 30px;
+	padding: 10px 8px;
+	margin: 10px 0px;
+	border: 1px solid;
+	font-size: 12pt;
+}
+
+.form_div form .form_block .form_block_body .email {
+	width: 300px;
+	height: 30px;
+	padding: 10px 8px;
+	margin: 10px 0px;
+	border: 1px solid;
+	font-size: 12pt;
+	/*float: left;*/
+}
+
+.email_btn {
+	width: 170px;
+	height: 54px;
+	padding: 10px 8px;
+	margin: 10px 0px;
+	margin-left: 10px;
+	background-color: #83dda7;
+	color: #fff;
+	font-weight: 600;
+	font-size: 12pt;
+	border: none;
+	/*border: 2px solid #000;*/
+	float: right;
+	cursor: pointer;
+}
+
+.form_div form .form_block .form_block_body .war_text {
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+.form_div form .checkbox_container {
+	width: 500px;
+	margin: 10px 0px;
+	text-align: left;
+	/*font-size: 12pt;*/
+}
+
+.form_div form .checkbox_container .checkbox_container_border {
+	width: 500px;
+	height: 140px;
+	border-top: 2px solid;
+	border-bottom: 2px solid;
+	text-align: left;
+}
+
+.form_div form .checkbox_container input[type="checkbox"] {
+	margin: 10px 0px;
+}
+
+.form_div input[type="submit"] {
+	width: 500px;
+	height: 60px;
+	margin: 10px 0px;
+	background-color: #83dda7;
+	border: 0px solid;
+	color: #fff;
+	font-size: 12pt;
+	font-weight: bold;
+	cursor: pointer;
+}

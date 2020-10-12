@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/notify.css">
+	<title>새마음</title>
+	<script src="../js/notify.js" defer></script>
+	<script src="../js/jquery-1.12.3.js" defer></script>
+</head>
+<body>
+    <?php
+	include("../header.html");
+	include("../db/dbcon.php");
+	$m_id = $_SESSION['id'];
+    ?>
+    <main>
+        <h1>알림</h1>
+        <ul class="notify_ul">
+			<?php
+				$sql = "SELECT * FROM notify WHERE user_id='$m_id' ORDER BY mdate desc";
+				$result = $mysqli->query($sql);
+				while($row = mysqli_fetch_array($result)) {	?>
+					<li>
+						<div class="notify_img">
+							<img src="../img/logo.png" alt="logo">
+						</div>
+						<div class="notify_content">
+							<div class="notify_content_top">
+								<div class="notify_category">
+									<?=$row['mcategory']?>
+								</div>
+								<span><?=$row['mdate']?></span>
+							</div>
+							<div class="notify_content_bot">
+								<span><? $me = $row['message']; echo htmlspecialchars_decode($me);?></span>
+							</div>
+							<button type="button" class="basic_btn notify_del_btn" value="<?=$row['num']?>">삭제</button>
+						</div>
+					</li>
+			<?php
+				}
+			?>
+            
+            <!-- <li>
+				<div class="notify_img">
+					<img src="../img/logo.png" alt="logo">
+				</div>
+				<div class="notify_content">
+					<div class="notify_content_top">
+						<div class="notify_category">
+							배송 / 목표달성
+						</div>
+						<span>2020.05.17</span>
+					</div>
+					<div class="notify_content_bot">
+						<span>월정리에 조각조각 모인 유리 구슬 이 목표를 달성하여 배송이 시작됩니다.</span>
+					</div>
+				</div>
+            </li>
+            <li>
+				<div class="notify_img">
+					<img src="../img/logo.png" alt="logo">
+				</div>
+				<div class="notify_content">
+					<div class="notify_content_top">
+						<div class="notify_category">
+							배송 / 목표달성
+						</div>
+						<span>2020.05.17</span>
+					</div>
+					<div class="notify_content_bot">
+						<span>월정리에 조각조각 모인 유리 구슬 이 목표를 달성하여 배송이 시작됩니다.</span>
+					</div>
+				</div>
+			</li> -->
+        </ul>
+    </main>
+    <?php
+    include("../footer.html");
+    ?>
+</body>
+</html>

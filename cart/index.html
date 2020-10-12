@@ -1,0 +1,107 @@
+<!DOTYPEHTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../css/cart.css?ver">
+        <script type="text/javascript" src="../js/jquery-1.12.3.js"></script>
+        <script type="text/javascript" src="../js/cart.js"></script>
+    </head>
+    <body>
+        <?php
+        include("../db/dbcon.php");
+        include("../header.html");
+        if(!isset($_SESSION['id'])) {
+            echo "<script>
+                alert('로그인 후 이용해 주세요.');
+                location.href='../login/';
+            </script>";
+        }
+        ?>
+        <main>
+            <div class="cart-wrap">
+                <div class="cart_top_text">
+                    <span class="cart_top">
+                        장바구니
+                    </span>
+                    <ul class="cart_list">
+                        <li style="color:#83dda7;">장바구니 ></li>
+                        <li>주문결제 ></li>
+                        <li>주문완료</li>
+                    </ul>
+                </div>
+                <form action="purchase.html" method="POST">
+                <div class="cart">
+                    <ul>
+                        <?php
+
+                        $id=$_SESSION['id'];
+                        $Tprice = 0;
+                        $charge = 0;
+                        $sql = "SELECT cart.cart_num, id, product_num, option_name, product.num, pname, price, marketer, pcategory, achievement, max_achievement, current_achievement, refund, pdate, first_img, content_img, accept FROM cart INNER JOIN  product ON cart.product_num = product.num WHERE cart.id = '$id'";
+	                    $result = $mysqli->query($sql);
+                        while($row = mysqli_fetch_array($result)) { ?>
+                            <li class="cart_li">
+                                <div class="cart_img">
+                                    <input type="checkbox" name="check[]" value="<?=$row['cart_num']?>" onclick="checkbox(event)">
+                                    <!-- value = pro_num -->
+                                    <img src="../img/product/<?=$row['first_img']?>" />
+                                </div>
+                                <div class="cart_content">
+                                    <div class="cart_left_top">
+                                        <div class="cart_content_title">
+                                            <span><?=$row['pname']?></span>
+                                        </div>
+                                        <div class="cart_content_option">
+                                            <span>옵션 : <?=$row['option_name']?></span>
+                                            <div class="cart_content_price">
+                                                <span>수량</span> <span>1</span><span><span><?=number_format($row['price'])?></span> 원</span>
+                                                <button type="button" class="del_btn" value="<?=$row['cart_num']?>" onclick="del_item(event)">&times;</button>
+                                            </div>
+                                        </div>
+                                        <textarea name="cart_textarea" class="cart_textarea" placeholder="주문 요청사항을 입력해주세요"></textarea>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php } ?>
+                        <div class="shipping">
+                            <span>배송비</span> <span><?=number_format($charge)?>원</span>
+                        </div>
+                    </ul>
+                </div>
+                <table class="sum_product_table">
+                    <tr>
+                        <td class="product_text_top">총 주문 금액</td>
+                        <td></td>
+                        <td class="product_text_top">배송비</td>
+                        <td></td>
+                        <td class="product_text_top">결제예정금액</td>
+                    </tr>
+                    <tr>
+                        <td class="val_td_1"><span class="val_td_1_price"><?=number_format($Tprice)?></span>원</td>
+                        <td class="sum_td">+</td>
+                        <td class="val_td_2"><?=number_format($charge)?>원</td>
+                        <td class="equl_td">=</td>
+                        <td class="val_td_3"><span class="val_td_3_Tprice"><?=number_format($Tprice+$charge)?></span>원</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="radius_td">
+                            <div class="buttom_text">
+                                상품 목표인원 미달시 금액은 환불 됩니다.
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="buttons">
+                    <input type="hidden" name="Tprice" id="Tprice">
+                    <input type="hidden" name="charge" id="charge" value="0">
+                    <!-- <button class="reset_button">환불 하기</button> -->
+                    <button type="submit" class="order_button">선택한 작품 주문</button>
+                </div>
+            </form>
+            </div>
+        </main>
+        <?php
+        include("../footer.html");
+        ?>
+    </body>
+</html>

@@ -1,0 +1,297 @@
+section {
+	/*width: 1920px;*/
+	padding: 0px;
+	margin: 0px auto;
+    background-color: #fff;
+    text-align: center;
+    font-family: "맑은 고딕";
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.img_slide {
+	width: 100%;
+	height: 450px;
+	margin: 0 auto;
+	margin-top: 30px;
+	/*background-color: #afaf;*/
+	overflow: hidden;
+}
+
+.img_slide input[type="radio"] {
+	display: none;
+}
+
+.img_slide ul {
+	width:calc(100% * 3);
+	height: 400px;
+	transition: 1s;
+	padding: 0px;
+	display: flex;
+	/*animation:slide 10s infinite;*/
+}
+
+.img_slide ul li {
+	width: 100%;
+	height: 100%;
+}
+
+.img_slide ul li img {
+	width: 100%;
+	height: 100%;
+}
+
+.img_slide .pos{
+	text-align: center;
+	position: relative;
+	bottom: 10px;
+	top: 290px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	z-index: 777;
+}
+
+.img_slide .pos label{
+	display: inline-block;
+	vertical-align: middle;
+	width: 15px;
+	height: 15px;
+	border: 2px solid #666;
+	background: #fff;
+	transition: 0.3s;
+	border-radius: 50%;
+	cursor: pointer;
+	position: relative;
+	top: -270px;
+}
+
+#pos1:checked~ul{margin-left:0%;}
+#pos2:checked~ul{margin-left:-100%;}
+#pos3:checked~ul{margin-left:-200%;}
+#pos4:checked~ul{margin-left:-300%;}
+#pos1:checked~.pos>label:nth-child(1){background:#666;}
+#pos2:checked~.pos>label:nth-child(2){background:#666;}
+#pos3:checked~.pos>label:nth-child(3){background:#666;}
+/*#pos4:checked~.pos>label:nth-child(4){background:#666;}*/
+
+.content {
+	width: 100%;
+	height: auto;
+	margin-top: 40px;
+	/*background-color: #afa3;*/
+}
+
+.content .pro_list_all {
+	margin-bottom: 70px;
+}
+
+.content .pro_list_all .pro_list_text {
+	/*상품리스트 제목*/
+
+	width: 1100px;
+	height: 50px;
+	/*background-color: red;*/
+	font-size: 22pt;
+	border-bottom: 3px solid;
+	font-weight: bold;
+	margin: 0 auto;
+}
+
+.content .pro_list_all .pro_list_text p {
+	/*상품리스트 제목 p태그*/
+
+	float: left;
+}
+
+.content .pro_list_all .pro_list_text ul {
+	float: right;
+}
+
+.content .pro_list_all .pro_list_text ul li {
+	width: 70px;
+	float: left;
+}
+
+.content .pro_list_all .pro_list_text ul li span {
+	cursor: pointer;
+}
+
+.content .pro_list_all .pro_list_total {
+	/*상품리스트*/
+
+	width: 1100px;
+	height: 350px;
+	/*background-color: #f0f0f0;*/
+	margin: 0 auto;
+	margin-top: 10px;
+	overflow: hidden;
+}
+
+.content .pro_list_all .pro_list_total ul {
+	width: 1100px;
+	float: left;
+	padding: 0px;
+	display: flex;
+	transition: 1.5s;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item {
+	/*상품리스트 상품1개*/
+
+	width: 198px;
+	height: 312px;
+	float: left;
+	margin-right: 25px;
+	margin-bottom: 25px;
+	border: 1px solid #afafaf;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item:nth-child(5n) {
+	/*상품리스트 상품1개 마지막*/
+
+	margin-right: 0px;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_top {
+	/*상품이미지*/
+
+	width: 198px;
+	height: 180px;
+	/*background-color: #afa3;*/
+
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_top img {
+	/*상품 이미지 크기*/
+	width: 198px;
+	height: 180px;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom {
+	/*상품 아래*/
+	width: 170px;
+	height: 110px;
+	/*background-color: #F4F0D3;*/
+	/*border: 1px solid #afafaf;*/
+	padding: 10px 15px;
+	text-align: left;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom .pro_title {
+	/*상품 제목*/
+
+	min-height: 37px;
+	font-size: 10pt;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom .pro_writer {
+	/*상품 제작자*/
+	font-size: 9pt;
+	margin-bottom: 10px;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom .progress {
+	/*프로그레스 기간 퍼센트*/
+
+	width: 100%;
+
+	font-size: 5pt;
+}
+
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom progress {
+	/*프로그레스 바*/
+	width: 100%;
+	height: 8px;
+	background-color: #f8f8f8;
+	margin-bottom: 5px;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom progress::-webkit-progress-bar {
+	background-color: #D5D5D5;
+
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom progress::-webkit-progress-value {
+	
+	background-color: #83dda7;
+}
+
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom .progress i {
+	/*프로그레스 바 기간 달력 */
+	
+	float: left;
+	font-size: 11pt;
+	color: #83dda7;
+	margin-right: 4px;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom .progress p{
+	/*프로그레스 바 기간 p 태그*/
+	
+	/*font-size: 8pt;*/
+	float: left;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom .progress font {
+	/*프로그레스 바 인원수 font 태그*/
+
+	/*font-size: 8pt;*/
+	float: right;
+}
+
+.content .pro_list_all .pro_list_total .pro_list_item .pro_list_item_bottom .progress b {
+	/*프로그레스 바 퍼센트 b 태그*/
+
+	/*font-size: 8pt;*/
+	float: right;
+}
+
+.jeju_list_item {
+	width: 348px;
+	height: 282px;
+	float: left;
+	margin-right: 25px;
+	margin-bottom: 25px;
+	border: 1px solid #afafaf;
+}
+
+.content .pro_list_all .pro_list_total .jeju_list_item img {
+	width: 348px;
+	height: 180px;
+	float: left;
+}
+
+.content .pro_list_all .pro_list_total .jeju_list_item .jeju_list_item_text {
+	width: 320px;
+	/* height: 110px; */
+	padding: 10px 15px;
+	/*border: 1px solid #D5D5D5;*/
+	float: left;
+	text-align: left;
+}
+
+.jeju_list_item_text h4 {
+	font-size: 10pt;
+}
+
+.content .pro_list_all .pro_list_total .jeju_list_item:nth-child(3n) {
+	/*변해지는 제주도 상품1개 마지막*/
+
+	margin-right: 0px;
+}
+
+.item:hover {
+	box-shadow: 0px 0px 10px 2px #afafaf;
+}

@@ -1,0 +1,394 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+section {
+	/*width: 1920px;*/
+	padding: 0px;
+	margin: 0px auto;
+    background-color: #fff;
+    /* text-align: center; */
+    font-family: "맑은 고딕";
+    font-style: normal;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+main {
+    width: 100%;
+    margin: 50px 0px;
+}
+
+.content {
+    width: 1100px;
+    min-height: 400px;
+}
+
+.re {
+    width: 70px;
+    height: 100%;
+    background-color: #fff;
+    border: 2px solid #d5d5d5;
+    border-radius: 5px;
+    padding: 5px;
+    display: inline-block;
+    font-size: 12pt;
+    color: #d5d5d5;
+    margin-right: 5px;
+}
+
+.title {
+    color: #d5d5d5;
+    margin-bottom: 50px;
+}
+
+.title h1 span {
+    font-weight: 600;
+}
+
+.content_comment {
+    width: 100%;
+    height: 40px;
+    padding: 8px 0px;
+    border-radius: 8px;
+    background-color: #EFEFEF;
+}
+
+.content_comment span {
+    font-size: 13pt;
+}
+
+.content1,.content2,.content3,.content4 {
+    margin-top: 20px;
+}
+
+.menu_ul {
+    display: flex;
+    margin-top: 20px;
+}
+
+.menu_ul li {
+    min-width: 100px;
+    font-size: 15pt;
+    /* border: 1px solid; */
+    margin-right: 40px;
+}
+
+.content_title {
+    text-align: left;
+    font-size: 16pt;
+    color: #605F5B;
+    margin: 20px 0px;
+}
+
+.project_ul {
+    width: 100%;
+    min-height: 100px;
+    margin: 20px 0px;
+}
+
+.project_ul li {
+    width: calc(100%-40px);
+    min-height: 100px;
+    padding: 20px;
+    border: 1px solid #d5d5d5;
+    border-bottom: 0;
+    background-color: #EFEFEF;
+}
+
+.project_ul li:last-child {
+    border-bottom: 1px solid #d5d5d5;
+}
+
+.project_title {
+    text-align: left;
+    font-size: 16pt;
+    color: #605F5B;
+}
+
+.content_main {
+    text-align: left;
+    /* display: none; */
+}
+
+.project_description {
+    color: #605F5B;
+    font-size: 11pt;
+    margin-top: 10px;
+}
+
+.content1_main1 h3 {
+    margin-top: 30px;
+}
+
+.content_main input[name="pname"],.content_main input[name="EnName"] {
+    width: 500px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    margin-top: 10px;;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: 0.5em 0.75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: 0.25em;
+    width: 300px;
+    height: 180px;
+    margin-top: 20px;
+}
+
+.filebox label img {
+    width: 100%;
+    height: 100%;
+}
+
+.filebox input[type="file"] {
+    /* 파일 필드 숨기기 */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.category_select {
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    margin-top: 10px;
+}
+
+.content_main input[name="achievement"],.content_main input[name="max_achievement"] {
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.precautions {
+    width: calc(100%-100px);
+    min-height: 50px;;
+    background-color: #EFEFEF;
+    padding: 10px;
+    color: #605F5B;
+    margin: 10px 0px;
+}
+
+.precautions p {
+    margin-top: 5px;
+}
+
+.content_main input[name="pdate"] {
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.content_main input[id="option_input"] {
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.option_btn {
+    width: 60px;
+    height: 37px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    background-color: #83dda7;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+
+#option_table {
+    width: 100%;
+    border: 2px solid #afafaf;
+    border-collapse: collapse;
+}
+
+#option_table tr {
+    width: 100%;
+}
+
+#option_table tr th {
+    background-color: #e2e2e2;
+}
+
+#option_table tr th:nth-child(2) {
+    width: 58px;
+    height: 28px;
+    text-align: center;
+}
+
+#option_table tr td,#option_table tr th {
+    padding: 10px;
+    border: 2px solid #afafaf;
+}
+
+.del_btn {
+    width: 100%;
+    height: 100%;
+    font-size: 14pt;
+    font-weight: 600;
+    border: none;
+    background-color: #EFEFEF;
+}
+
+.content_main input[name="price"] {
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.num_input {
+    width: 50px;
+}
+
+#summernote {
+    min-height: 300px;
+}
+
+.panel-body {
+    min-height: 250px;
+}
+
+.content_main input[name="origin_place"] {
+    width: 500px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    margin-top: 10px;;
+    margin-bottom: 30px;
+}
+
+.open_btn_area {
+    float: right;
+}
+
+.open_btn_area img {
+    width: 25px;
+}
+
+.open_btn {
+    background-color: transparent;
+    border: 0px;
+    font-size: 12pt;
+    color: #83dda7;
+}
+
+.content_main input[name="bank"] {
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    margin-top: 10px;
+}
+
+.email {
+	width: 300px;
+    /* height: 30px; */
+    height: 40px;
+	padding: 10px 8px;
+    margin: 10px 0px;
+    border: 1px solid #83dda7;
+    font-size: 12pt;
+    border-radius: 10px;
+	/*float: left;*/
+}
+
+.email_btn {
+	width: 150px;
+	height: 44px;
+	padding: 10px 8px;
+	margin: 10px 0px;
+	margin-left: 10px;
+	background-color: #83dda7;
+	color: #fff;
+	font-weight: 600;
+	font-size: 12pt;
+	border: none;
+	/*border: 2px solid #000;*/
+	/* float: right; */
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.option_com {
+    width: 120px;
+    height: 37px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    background-color: #83dda7;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: #83dda7;
+}
+
+.submit_btn {
+    width: 120px;
+    height: 37px;
+    border-radius: 10px;
+    border: 1px solid #83dda7;
+    background-color: #83dda7;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.panel-body {
+    min-height: 300px;
+}
+
+/* .nse_content{
+    width: 1050px;
+    height: 500px;
+    display: block;
+} */
+
+#ir1 {
+    width: 650px;
+    min-height: 1000px;
+}
