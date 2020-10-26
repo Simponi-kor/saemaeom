@@ -271,6 +271,7 @@ a {
 	width: 348px;
 	height: 180px;
 	float: left;
+	cursor: pointer;
 }
 
 .content .pro_list_all .pro_list_total .jeju_list_item .jeju_list_item_text {

@@ -105,6 +105,7 @@ function addOption() {
     if(option_input.value=="") {
         alert("옵션이름을 추가해 주세요");
     }else{
+        option_input.value = '';
         document.querySelector("#option_table tbody").appendChild(tr);
     }
     
@@ -125,7 +126,6 @@ function enter(key) {
 function optionsub() {
     //옵션 배열에 추가
     var option_hidden = document.querySelector("#option_hidden");
-    var option_table_td = document.querySelectorAll(".option_table_td");
     option_hidden_arr = [];
     tbody = document.querySelector("#option_table tbody").childNodes;
     // console.log(tbody.length);

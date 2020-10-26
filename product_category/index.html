@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../fontawesome-free-5.14.0-web/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/product_catagory.css">
 	<title>새마음</title>
 	<script type="text/javascript" src="../js/jquery-1.12.3.js" defer="defer"></script>
@@ -53,7 +54,7 @@
 				<ul id="pro_list_ul">
 					<?php
 
-						$sql = "SELECT * FROM product WHERE pcategory='$category'";
+						$sql = "SELECT * FROM product WHERE pcategory='$category' AND accept=1";
 						$result = $mysqli->query($sql);
 						$array = [[]];
 						$idx=0;
@@ -75,7 +76,7 @@
 								
 								<div class="progress">
 									<progress value="<?=$row['current_achievement']?>" max="<?=$row['achievement']?>" ></progress>
-									<img src="../img/icon/calendar.png" alt="calendar">
+									<i class="far fa-calendar-alt"></i>
 									<?php
 									//날짜
 									$db_date = $row['pdate'];
@@ -185,7 +186,7 @@
 								
 								<div class="progress">
 									<progress value="${current_achievement}" max="${achievement}" ></progress>
-									<img src="../img/icon/calendar.png" alt="calendar">
+									<i class="far fa-calendar-alt"></i>
 									<p>${pdate}일 남음</p>
 									<b>${pus}%</b>
 									<font>${current_achievement}/${achievement}(명)&nbsp;&nbsp;</font>

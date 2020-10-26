@@ -186,10 +186,12 @@ main {
 }
 
 
-.pro_list_item_bottom .progress img {
+.pro_list_item_bottom .progress i {
 	/*프로그레스 바 기간 달력 이미지*/
-	width: 15px;
 	float: left;
+	font-size: 11pt;
+	color: #83dda7;
+	margin-right: 4px;
 }
 
 .pro_list_item_bottom .progress p{
